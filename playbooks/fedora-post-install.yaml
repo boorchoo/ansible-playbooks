@@ -232,3 +232,22 @@
       with_items:
         - themes/shell
         - colorschemes
+    - name: Configure Powerline color scheme
+      get_url:
+        url: https://raw.githubusercontent.com/boorchoo/ansible-playbooks/master/data/powerline-colorscheme.json
+        dest: "{{ansible_env.HOME}}/.config/powerline/colorschemes/default.json"
+    - name: Configure Powerline shell theme
+      get_url:
+        url: https://raw.githubusercontent.com/boorchoo/ansible-playbooks/master/data/powerline-shell-theme.json
+        dest: "{{ansible_env.HOME}}/.config/powerline/themes/shell/default.json"
+    - name: Configure Powerline shell
+      blockinfile:
+        path: "{{ansible_env.HOME}}/.bashrc"
+        create: yes
+        block: |
+          if [ -f `which powerline-daemon` ]; then
+            powerline-daemon -q
+            POWERLINE_BASH_CONTINUATION=1
+            POWERLINE_BASH_SELECT=1
+            . /usr/share/powerline/bash/powerline.sh
+          fi
