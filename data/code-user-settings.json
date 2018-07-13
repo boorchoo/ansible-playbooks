@@ -1,0 +1,12 @@
+{
+  "telemetry.enableTelemetry": false,
+  "telemetry.enableCrashReporter": false,
+  "workbench.colorTheme": "One Dark Pro",
+  "editor.fontFamily": "Fira Code Light",
+  "editor.fontSize": 15,
+  "editor.fontLigatures": true,
+  "terminal.integrated.fontFamily": "Fira Code Light",
+  "terminal.integrated.fontSize": 15,
+  "git.confirmSync": false,
+  "gitlens.historyExplorer.location": "scm"
+}

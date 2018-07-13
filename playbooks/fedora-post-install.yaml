@@ -145,6 +145,15 @@
         - polymer.polymer-ide
         - ms-vscode.go
         - zhuangtongfa.material-theme
+    - name: Prepare to configure Visual Studio Code
+      file:
+        path: "{{ansible_env.HOME}}/.config/Code/User"
+        recurse: yes
+        state: directory
+    - name: Configure Visual Studio Code
+      copy:
+        src: "{{playbook_dir}}/../data/code-user-settings.json"
+        dest: "{{ansible_env.HOME}}/.config/Code/User/settings.json"
     - name: Add Flathub flatpak repository
       flatpak_remote:
         name: flathub
@@ -233,12 +242,12 @@
         - themes/shell
         - colorschemes
     - name: Configure Powerline color scheme
-      get_url:
-        url: https://raw.githubusercontent.com/boorchoo/ansible-playbooks/master/data/powerline-colorscheme.json
+      copy:
+        src: "{{playbook_dir}}/../data/powerline-colorscheme.json"
         dest: "{{ansible_env.HOME}}/.config/powerline/colorschemes/default.json"
     - name: Configure Powerline shell theme
-      get_url:
-        url: https://raw.githubusercontent.com/boorchoo/ansible-playbooks/master/data/powerline-shell-theme.json
+      copy:
+        src: "{{playbook_dir}}/../data/powerline-shell-theme.json"
         dest: "{{ansible_env.HOME}}/.config/powerline/themes/shell/default.json"
     - name: Configure Powerline shell
       blockinfile:
