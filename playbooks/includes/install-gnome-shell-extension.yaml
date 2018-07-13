@@ -1,0 +1,12 @@
+- name: Prepare to install {{uuid}} GNOME Shell extension
+  file:
+    path: "{{ansible_env.HOME}}/.local/share/gnome-shell/extensions/{{uuid}}"
+    recurse: yes
+    state: directory
+- name: Install {{uuid}} GNOME Shell extension
+  unarchive:
+    src: "https://extensions.gnome.org{{lookup('url','https://extensions.gnome.org/extension-info/?uuid={{uuid}}&shell_version={{shell_version}}')|from_json|json_query('download_url')}}"
+    remote_src: yes
+    dest: "{{ansible_env.HOME}}/.local/share/gnome-shell/extensions/{{uuid}}"
+- name: Enable {{uuid}} GNOME Shell extension
+  shell: gnome-shell-extension-tool --enable-extension="{{uuid}}" || echo ""

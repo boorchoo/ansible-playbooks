@@ -244,6 +244,7 @@
       blockinfile:
         path: "{{ansible_env.HOME}}/.bashrc"
         create: yes
+        marker: "# {mark} POWERLINE BLOCK"
         block: |
           if [ -f `which powerline-daemon` ]; then
             powerline-daemon -q
@@ -251,3 +252,10 @@
             POWERLINE_BASH_SELECT=1
             . /usr/share/powerline/bash/powerline.sh
           fi
+    - name: Prepare to install GNOME Shell extensions
+      shell: gnome-shell --version | cut -d" " -f3 | cut -d. -f1,2
+      register: gnome_shell_version
+    - include: "includes/install-gnome-shell-extension.yaml uuid={{item}} shell_version={{gnome_shell_version.stdout}}"
+      with_items:
+        - dash-to-dock@micxgx.gmail.com
+        - TopIcons@phocean.net
