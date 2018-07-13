@@ -26,8 +26,33 @@
         name: google-chrome
         description: google-chrome
         baseurl: http://dl.google.com/linux/chrome/rpm/stable/x86_64
+        enabled: yes
         gpgcheck: yes
         gpgkey: https://dl.google.com/linux/linux_signing_key.pub
+    - name: Add Slack repository
+      become: yes
+      yum_repository:
+        name: slack
+        description: slack
+        baseurl: https://packagecloud.io/slacktechnologies/slack/fedora/21/x86_64
+        enabled: yes
+        gpgcheck: no
+        gpgkey: https://packagecloud.io/gpg.key
+        sslcacert: /etc/pki/tls/certs/ca-bundle.crt
+    - name: Import Skype GPG key
+      become: yes
+      rpm_key:
+        key: https://repo.skype.com/data/SKYPE-GPG-KEY
+        state: present
+    - name: Add Skype repository
+      become: yes
+      yum_repository:
+        name: skype-stable
+        description: skype (stable)
+        baseurl: https://repo.skype.com/rpm/stable/
+        enabled: yes
+        gpgcheck: yes
+        gpgkey: https://repo.skype.com/data/SKYPE-GPG-KEY
     - name: Import Visual Studio Code GPG key
       become: yes
       rpm_key:
@@ -39,6 +64,7 @@
         name: code
         description: Visual Studio Code
         baseurl: https://packages.microsoft.com/yumrepos/vscode
+        enabled: yes
         gpgcheck: yes
         gpgkey: https://packages.microsoft.com/keys/microsoft.asc
     - name: Update all packages
@@ -55,6 +81,16 @@
       become: yes
       dnf:
         name: google-chrome-stable
+        state: latest
+    - name: Install Slack
+      become: yes
+      dnf:
+        name: slack
+        state: latest
+    - name: Install Skype
+      become: yes
+      dnf:
+        name: skypeforlinux
         state: latest
     - name: Install Visual Studio Code
       become: yes
