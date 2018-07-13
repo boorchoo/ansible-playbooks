@@ -316,3 +316,45 @@
       dconf:
         key: /org/gnome/shell/extensions/topicons/tray-order
         value: 2
+    - name: Install gThumb
+      become: yes
+      dnf:
+        name: gthumb
+        state: latest
+    - name: Set browser thumbnail size for gThumb
+      dconf:
+        key: /org/gnome/gthumb/browser/thumbnail-size
+        value: 200
+    - name: Disable show menubar by default in new terminals for Terminal
+      dconf:
+        key: /org/gnome/terminal/legacy/default-show-menubar
+        value: boolean false
+    - name: Install Tilix
+      become: yes
+      dnf:
+        name: tilix
+        state: latest
+    - name: Set theme variant for Tilix
+      dconf:
+        key: /com/gexperts/Tilix/theme-variant
+        value: "'dark'"
+    - name: Disable show the terminal title even if it's only terminal for Tilix
+      dconf:
+        key: /com/gexperts/Tilix/terminal-title-show-when-single
+        value: boolean false
+    - name: Set number of columns for Tilix default profile
+      dconf:
+        key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/default-size-columns
+        value: 160
+    - name: Set number of rows for Tilix default profile
+      dconf:
+        key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/default-size-rows
+        value: 48
+    - name: Set transparency for Tilix default profile
+      dconf:
+        key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/background-transparency-percent
+        value: 5
+    - name: Disable show scrollbar for Tilix default profile
+      dconf:
+        key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/show-scrollbar
+        value: boolean false
