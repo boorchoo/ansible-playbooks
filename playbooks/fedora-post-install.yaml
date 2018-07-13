@@ -259,3 +259,51 @@
       with_items:
         - dash-to-dock@micxgx.gmail.com
         - TopIcons@phocean.net
+    - name: Set position on screen for Dash to Dock
+      dconf:
+        key: /org/gnome/shell/extensions/dash-to-dock/dock-position
+        value: "'BOTTOM'"
+    - name: Enable panel mode for Dash to Dock
+      dconf:
+        key: /org/gnome/shell/extensions/dash-to-dock/extend-height
+        value: boolean true
+    - name: Enable fixed icon size for Dash to Dock
+      dconf:
+        key: /org/gnome/shell/extensions/dash-to-dock/icon-size-fixed
+        value: boolean true
+    - name: Enable move applications button at the beginning of the dock for Dash to Dock
+      dconf:
+        key: /org/gnome/shell/extensions/dash-to-dock/show-apps-at-top
+        value: boolean true
+    - name: Enable use built-in theme for Dash to Dock
+      dconf:
+        key: /org/gnome/shell/extensions/dash-to-dock/apply-custom-theme
+        value: boolean true
+    - name: Set click action for Dash to Dock
+      dconf:
+        key: /org/gnome/shell/extensions/dash-to-dock/click-action
+        value: "'minimize'"
+    - name: Set scroll action for Dash to Dock
+      dconf:
+        key: /org/gnome/shell/extensions/dash-to-dock/scroll-action
+        value: "'cycle-windows'"
+    - name: Disable animate show applications for Dash to Dock
+      dconf:
+        key: /org/gnome/shell/extensions/dash-to-dock/animate-show-apps
+        value: boolean false
+    - name: Set desaturation for TopIcons Plus
+      dconf:
+        key: /org/gnome/shell/extensions/topicons/icon-saturation
+        value: 1.0
+    - name: Set icon size for TopIcons Plus
+      dconf:
+        key: /org/gnome/shell/extensions/topicons/icon-size
+        value: 20
+    - name: Set tray horizontal alignment for TopIcons Plus
+      dconf:
+        key: /org/gnome/shell/extensions/topicons/tray-pos
+        value: "'right'"
+    - name: Set tray offset for TopIcons Plus
+      dconf:
+        key: /org/gnome/shell/extensions/topicons/tray-order
+        value: 2
