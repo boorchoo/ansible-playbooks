@@ -329,6 +329,26 @@
       dconf:
         key: /org/gnome/terminal/legacy/default-show-menubar
         value: boolean false
+    - name: Set number of columns for Terminal default profile
+      dconf:
+        key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/default-size-columns
+        value: 160
+    - name: Set number of rows for Terminal default profile
+      dconf:
+        key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/default-size-rows
+        value: 48
+    - name: Enable transparent background for Terminal default profile
+      dconf:
+        key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-transparent-background
+        value: boolean true
+    - name: Set transparency for Terminal default profile
+      dconf:
+        key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/background-transparency-percent
+        value: 10
+    - name: Disable show scrollbar for Terminal default profile
+      dconf:
+        key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/scrollbar-policy
+        value: "'never'"
     - name: Install Tilix
       become: yes
       dnf:
@@ -353,7 +373,7 @@
     - name: Set transparency for Tilix default profile
       dconf:
         key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/background-transparency-percent
-        value: 5
+        value: 10
     - name: Disable show scrollbar for Tilix default profile
       dconf:
         key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/show-scrollbar
