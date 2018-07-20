@@ -1,0 +1,9 @@
+- name: Download Mailspring
+  get_url:
+    url: https://updates.getmailspring.com/download?platform=linuxRpm
+    dest: /tmp
+  register: mailspring_rpm
+- name: Install Mailspring
+  become: yes
+  dnf:
+    name: "{{mailspring_rpm.dest}}"
