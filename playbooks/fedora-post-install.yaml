@@ -211,6 +211,16 @@
       install: no
     master_pdf_editor:
       install: no
+    dosbox:
+      install: yes
+      configure: yes
+      config:
+        - sdl.fullscreen: 'true'
+        - sdl.fulldouble: 'true'
+        - sdl.fullresolution: '1920x1080'
+        - sdl.windowresolution: '1920x1080'
+        - sdl.output: 'opengl'
+        - sdl.usescancodes: 'false'
   tasks:
     - name: Update all packages
       become: yes
@@ -328,3 +338,5 @@
       dnf:
         name: https://code-industry.net/public/master-pdf-editor-5.0.36_qt5.x86_64.rpm
       when: master_pdf_editor.install
+    - include: includes/dosbox.yaml
+      when: dosbox.install

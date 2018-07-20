@@ -1,0 +1,18 @@
+- name: Install DOSBox
+  become: yes
+  dnf:
+    name: dosbox
+    state: latest
+- name: Prepare to configure DOSBox
+  command: dosbox -printconf
+  register: dosbox_conf
+  when: dosbox.configure
+- name: Configure DOSBox
+  ini_file:
+    path: "{{dosbox_conf.stdout}}"
+    section: "{{item.key.split('.')[0]}}"
+    option: "{{item.key.split('.')[1]}}"
+    value: "{{item.value}}"
+    no_extra_spaces: yes
+  with_dict: "{{dosbox.config}}"
+  when: dosbox.configure
