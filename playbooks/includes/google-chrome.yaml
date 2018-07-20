@@ -1,0 +1,22 @@
+- name: Import Google Chrome GPG key
+  become: yes
+  rpm_key:
+    key: https://dl.google.com/linux/linux_signing_key.pub
+    state: present
+- name: Add Google Chrome repository
+  become: yes
+  yum_repository:
+    name: google-chrome
+    description: google-chrome
+    baseurl: http://dl.google.com/linux/chrome/rpm/stable/x86_64
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: https://dl.google.com/linux/linux_signing_key.pub
+- name: Install Google Chrome
+  become: yes
+  dnf:
+    name: google-chrome-stable
+    state: latest
+- name: Set Google Chrome as default web application
+  command: xdg-mime default google-chrome.desktop x-scheme-handler/http text/html text/xml application/xhtml_xml image/webp x-scheme-handler/https x-scheme-handler/ftp
+  when: google_chrome.default

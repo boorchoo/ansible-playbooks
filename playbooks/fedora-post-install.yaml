@@ -1,179 +1,15 @@
 - hosts: localhost
-  tasks:
-    - name: Install RPM Fusion free repository
-      become: yes
-      dnf:
-        name: 'https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_lsb.major_release}}.noarch.rpm'
-        state: present
-    - name: Install RPM Fusion nonfree repository
-      become: yes
-      dnf:
-        name: 'https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ansible_lsb.major_release}}.noarch.rpm'
-        state: present
-    - name: Install Yarn repository
-      become: yes
-      get_url:
-        url: https://dl.yarnpkg.com/rpm/yarn.repo
-        dest: /etc/yum.repos.d/yarn.repo
-    - name: Import Google Chrome GPG key
-      become: yes
-      rpm_key:
-        key: https://dl.google.com/linux/linux_signing_key.pub
-        state: present
-    - name: Add Google Chrome repository
-      become: yes
-      yum_repository:
-        name: google-chrome
-        description: google-chrome
-        baseurl: http://dl.google.com/linux/chrome/rpm/stable/x86_64
-        enabled: yes
-        gpgcheck: yes
-        gpgkey: https://dl.google.com/linux/linux_signing_key.pub
-    - name: Add Slack repository
-      become: yes
-      yum_repository:
-        name: slack
-        description: slack
-        baseurl: https://packagecloud.io/slacktechnologies/slack/fedora/21/x86_64
-        enabled: yes
-        gpgcheck: no
-        gpgkey: https://packagecloud.io/gpg.key
-        sslcacert: /etc/pki/tls/certs/ca-bundle.crt
-    - name: Import Skype GPG key
-      become: yes
-      rpm_key:
-        key: https://repo.skype.com/data/SKYPE-GPG-KEY
-        state: present
-    - name: Add Skype repository
-      become: yes
-      yum_repository:
-        name: skype-stable
-        description: skype (stable)
-        baseurl: https://repo.skype.com/rpm/stable/
-        enabled: yes
-        gpgcheck: yes
-        gpgkey: https://repo.skype.com/data/SKYPE-GPG-KEY
-    - name: Import Visual Studio Code GPG key
-      become: yes
-      rpm_key:
-        key: https://packages.microsoft.com/keys/microsoft.asc
-        state: present
-    - name: Add Visual Studio Code repository
-      become: yes
-      yum_repository:
-        name: code
-        description: Visual Studio Code
-        baseurl: https://packages.microsoft.com/yumrepos/vscode
-        enabled: yes
-        gpgcheck: yes
-        gpgkey: https://packages.microsoft.com/keys/microsoft.asc
-    - name: Update all packages
-      become: yes
-      dnf:
-        name: '*'
-        state: latest
-    - name: Install GStreamer plugins
-      become: yes
-      dnf:
-        name: gstreamer-plugins-bad,gstreamer-plugins-good,gstreamer-plugins-ugly,gstreamer-plugins-bad-free,gstreamer-plugins-good-extras,gstreamer-plugins-bad-nonfree,gstreamer-plugins-bad-free-extras,gstreamer1-plugins-ugly,gstreamer1-plugins-good-extras,gstreamer1-plugins-bad-nonfree,gstreamer1-plugins-bad-freeworld,gstreamer1-plugins-bad-free-extras
-        state: latest
-    - name: Install Google Chrome
-      become: yes
-      dnf:
-        name: google-chrome-stable
-        state: latest
-    - name: Install Slack
-      become: yes
-      dnf:
-        name: slack
-        state: latest
-    - name: Install Skype
-      become: yes
-      dnf:
-        name: skypeforlinux
-        state: latest
-    - name: Install Visual Studio Code
-      become: yes
-      dnf:
-        name: code
-        state: latest
-    - name: Install PHP
-      become: yes
-      dnf:
-        name: php,php-mysqlnd,php-gd,php-mbstring
-        state: latest
-    - name: Enable and restart Apache HTTP Server
-      become: yes
-      service:
-        name: httpd
-        enabled: yes
-        state: restarted
-    - name: Install MariaDB
-      become: yes
-      dnf:
-        name: mariadb-server
-        state: latest
-    - name: Enable and start MariaDB Server
-      become: yes
-      service:
-        name: mariadb
-        enabled: yes
-        state: started
-    - name: Install Yarn
-      become: yes
-      dnf:
-        name: yarn
-        state: latest
-    - name: Install Go
-      become: yes
-      dnf:
-        name: golang
-        state: latest
-    - name: Install Microsoft fonts
-      become: yes
-      dnf:
-        name:
-          - cabextract
-          - 'https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm'
-        state: latest
-    - name: Prepare to install fonts
-      file:
-        path: "{{ansible_env.HOME}}/.local/share/fonts"
-        recurse: yes
-        state: directory
-    - name: Install Fira Code fonts
-      get_url:
-        url: https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-{{item}}.ttf?raw=true
-        dest: "{{ansible_env.HOME}}/.local/share/fonts"
-      with_items:
-        - Bold
-        - Light
-        - Medium
-        - Regular
-        - Retina
-    - name: Update font cache
-      command: fc-cache -f
-    - name: Install Node.js
-      become: yes
-      dnf:
-        name: nodejs
-        state: latest
-    - name: Install Bower
-      become: yes
-      npm:
-        name: bower
-        global: yes
-    - name: Install Polymer CLI
-      become: yes
-      command: npm install -g --unsafe-perm polymer-cli
-    - name: Install TypeScript
-      become: yes
-      npm:
-        name: typescript
-        global: yes
-    - name: Install Visual Studio Code extensions
-      command: code --install-extension {{item}}
-      with_items:
+  vars:
+    rpm_fusion:
+      install: yes
+    gstreamer_plugins:
+      install: yes
+    google_chrome:
+      install: yes
+      default: yes
+    vscode:
+      install: yes
+      install_extensions:
         - editorconfig.editorconfig
         - eamodio.gitlens
         - felixfbecker.php-intellisense
@@ -181,236 +17,283 @@
         - polymer.polymer-ide
         - ms-vscode.go
         - zhuangtongfa.material-theme
-    - name: Prepare to configure Visual Studio Code
-      file:
-        path: "{{ansible_env.HOME}}/.config/Code/User"
-        recurse: yes
-        state: directory
-    - name: Configure Visual Studio Code
-      copy:
-        src: "{{playbook_dir}}/../data/code-user-settings.json"
-        dest: "{{ansible_env.HOME}}/.config/Code/User/settings.json"
+      configure: yes
+    slack:
+      install: yes
+    skype:
+      install: yes
+    yarn:
+      install: yes
+    flathub_flatpaks:
+      - name: Lollypop
+        ref: org.gnome.Lollypop
+        install: yes
+      - name: GIMP
+        ref: org.gimp.GIMP
+        install: yes
+      - name: MyPaint
+        ref: org.mypaint.MyPaint
+        install: yes
+      - name: Viber
+        ref: com.viber.Viber
+        install: yes
+    microsoft_fonts:
+      install: yes
+    fira_code_fonts:
+      install: yes
+    gnome_shell_extensions:
+      - name: Dash to Dock
+        uuid: dash-to-dock@micxgx.gmail.com
+        install: yes
+        configure: yes
+        config:
+          - name: position on screen
+            key: /org/gnome/shell/extensions/dash-to-dock/dock-position
+            value: "'BOTTOM'"
+          - name: panel mode
+            key: /org/gnome/shell/extensions/dash-to-dock/extend-height
+            value: boolean true
+          - name: fixed icon size
+            key: /org/gnome/shell/extensions/dash-to-dock/icon-size-fixed
+            value: boolean true
+          - name: move applications button at the beginning of the dock
+            key: /org/gnome/shell/extensions/dash-to-dock/show-apps-at-top
+            value: boolean true
+          - name: use built-in theme
+            key: /org/gnome/shell/extensions/dash-to-dock/apply-custom-theme
+            value: boolean true
+          - name: click action
+            key: /org/gnome/shell/extensions/dash-to-dock/click-action
+            value: "'minimize'"
+          - name: scroll action
+            key: /org/gnome/shell/extensions/dash-to-dock/scroll-action
+            value: "'cycle-windows'"
+          - name: animate show applications
+            key: /org/gnome/shell/extensions/dash-to-dock/animate-show-apps
+            value: boolean false
+      - name: TopIcons Plus
+        uuid: TopIcons@phocean.net
+        install: yes
+        configure: yes
+        config:
+          - name: desaturation
+            key: /org/gnome/shell/extensions/topicons/icon-saturation
+            value: 1.0
+          - name: icon size
+            key: /org/gnome/shell/extensions/topicons/icon-size
+            value: 20
+          - name: tray horizontal alignment
+            key: /org/gnome/shell/extensions/topicons/tray-pos
+            value: "'right'"
+          - name: tray offset
+            key: /org/gnome/shell/extensions/topicons/tray-order
+            value: 2
+    terminal:
+      configure: yes
+      config:
+        - name: show menubar by default in new terminals
+          key: /org/gnome/terminal/legacy/default-show-menubar
+          value: boolean false
+        - name: number of columns
+          key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/default-size-columns
+          value: 160
+        - name: number of rows
+          key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/default-size-rows
+          value: 48
+        - name: transparent background
+          key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-transparent-background
+          value: boolean true
+        - name: transparency
+          key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/background-transparency-percent
+          value: 10
+        - name: show scrollbar
+          key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/scrollbar-policy
+          value: "'never'"
+    tilix:
+      install: yes
+      configure: yes
+      config:
+        - name: theme variant
+          key: /com/gexperts/Tilix/theme-variant
+          value: "'dark'"
+        - name: show the terminal title even if it's only terminal
+          key: /com/gexperts/Tilix/terminal-title-show-when-single
+          value: boolean false
+        - name: number of columns
+          key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/default-size-columns
+          value: 160
+        - name: number of rows
+          key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/default-size-rows
+          value: 48
+        - name: transparency
+          key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/background-transparency-percent
+          value: 10
+        - name: show scrollbar
+          key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/show-scrollbar
+          value: boolean false
+    gthumb:
+      install: yes
+      configure: yes
+      config:
+        - name: browser thumbnail size
+          key: /org/gnome/gthumb/browser/thumbnail-size
+          value: 200
+    powerline:
+      install: yes
+      configure: yes
+    gnome:
+      configure: yes
+      config:
+        - name: night light
+          key: /org/gnome/settings-daemon/plugins/color/night-light-enabled
+          value: boolean true
+        - name: night light temperature
+          key: /org/gnome/settings-daemon/plugins/color/night-light-temperature
+          value: uint32 5250
+        - name: input sources
+          key: /org/gnome/desktop/input-sources/sources
+          value: "[('xkb', 'us'), ('xkb', 'rs+latin'), ('xkb', 'rs'), ('ibus', 'typing-booster')]"
+        - name: formats
+          key: /system/locale/region
+          value: "'en_GB.UTF-8'"
+    videos:
+      default: yes
+      configure: yes
+      config:
+        - name: autoload subtiles
+          key: /org/gnome/Totem/autoload-subtitles
+          value: boolean true
+        - name: subtitle encoding
+          key: /org/gnome/Totem/subtitle-encoding
+          value: "'WINDOWS-1250'"
+    gnome_mpv:
+      install: yes
+      default: yes
+      configure: yes
+      config:
+        - name: MVP options
+          key: /io/github/gnome-mpv/mpv-options
+          value: "'--sub-auto=fuzzy --sub-codepage=utf8:cp1250 --sub-text-color=#ffff99 --sub-scale=1.5 --ass-style-override=strip'"
+    php:
+      install: yes
+    httpd:
+      enable: yes
+    mariadb:
+      install: yes
+      enable: yes
+    golang:
+      install: yes
+    nodejs:
+      install: yes
+    bower:
+      install: yes
+    polymer:
+      install: yes
+    typescript:
+      install: yes
+  tasks:
+    - name: Update all packages
+      become: yes
+      dnf:
+        name: '*'
+        state: latest
+    - include: includes/rpm-fusion.yaml
+      when: rpm_fusion.install or gstreamer_plugins.install or gnome_mpv.install
+    - name: Install GStreamer plugins
+      become: yes
+      dnf:
+        name: gstreamer-plugins-bad,gstreamer-plugins-good,gstreamer-plugins-ugly,gstreamer-plugins-bad-free,gstreamer-plugins-good-extras,gstreamer-plugins-bad-nonfree,gstreamer-plugins-bad-free-extras,gstreamer1-plugins-ugly,gstreamer1-plugins-good-extras,gstreamer1-plugins-bad-nonfree,gstreamer1-plugins-bad-freeworld,gstreamer1-plugins-bad-free-extras
+        state: latest
+      when: gstreamer_plugins.install
+    - include: includes/google-chrome.yaml
+      when: google_chrome.install
+    - include: includes/vscode.yaml
+      when: vscode.install
+    - include: includes/slack.yaml
+      when: slack.install
+    - include: includes/skype.yaml
+      when: skype.install
+    - include: includes/yarn.yaml
+      when: yarn.install
     - name: Add Flathub flatpak repository
       flatpak_remote:
         name: flathub
         state: present
         flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
         method: user
-    - name: Install Lollypop from Flathub
-      flatpak:
-        name: org.gnome.Lollypop
-        state: present
-        remote: flathub
-        method: user
-    - name: Install GIMP from Flathub
-      flatpak:
-        name: org.gimp.GIMP
-        state: present
-        remote: flathub
-        method: user
-    - name: Install MyPaint from Flathub
-      flatpak:
-        name: org.mypaint.MyPaint
-        state: present
-        remote: flathub
-        method: user
-    - name: Install Viber from Flathub
-      flatpak:
-        name: com.viber.Viber
-        state: present
-        remote: flathub
-        method: user
-    - name: Enable night light
-      dconf:
-        key: /org/gnome/settings-daemon/plugins/color/night-light-enabled
-        value: boolean true
-    - name: Set night light temperature
-      dconf:
-        key: /org/gnome/settings-daemon/plugins/color/night-light-temperature
-        value: uint32 5250
-    - name: Set input sources
-      dconf:
-        key: /org/gnome/desktop/input-sources/sources
-        value: "[('xkb', 'us'), ('xkb', 'rs+latin'), ('xkb', 'rs'), ('ibus', 'typing-booster')]"
-    - name: Set formats
-      dconf:
-        key: /system/locale/region
-        value: "'en_GB.UTF-8'"
-    - name: Install GNOME MPV
-      become: yes
-      dnf:
-        name: gnome-mpv
-        state: latest
-    - name: Set MVP options for GNOME MPV
-      dconf:
-        key: /io/github/gnome-mpv/mpv-options
-        value: "'--sub-auto=fuzzy --sub-codepage=utf8:cp1250 --sub-text-color=#ffff99 --sub-scale=1.5 --ass-style-override=strip'"
-    - name: Set Google Chrome as default web application
-      command: xdg-mime default google-chrome.desktop x-scheme-handler/http text/html text/xml application/xhtml_xml image/webp x-scheme-handler/https x-scheme-handler/ftp
-    - name: Set Videos as default music application
-      command: xdg-mime default org.gnome.Totem.desktop audio/3gpp audio/3gpp2 audio/aac audio/ac3 audio/AMR audio/AMR-WB audio/basic audio/dv audio/eac3 audio/flac audio/m4a audio/midi audio/mp1 audio/mp2 audio/mp3 audio/mp4 audio/mpeg audio/mpegurl audio/mpg audio/ogg audio/opus audio/prs.sid audio/scpls audio/vnd.rn-realaudio audio/wav audio/webm audio/x-aac audio/x-aiff audio/x-ape audio/x-flac audio/x-gsm audio/x-it audio/x-m4a audio/x-m4b audio/x-matroska audio/x-mod audio/x-mp1 audio/x-mp2 audio/x-mp3 audio/x-mpeg audio/x-mpegurl audio/x-mpg audio/x-ms-asf audio/x-ms-asx audio/x-ms-wax audio/x-ms-wma audio/x-musepack audio/x-opus+ogg audio/x-pn-aiff audio/x-pn-au audio/x-pn-realaudio audio/x-pn-realaudio-plugin audio/x-pn-wav audio/x-pn-windows-acm audio/x-realaudio audio/x-real-audio audio/x-s3m audio/x-sbc audio/x-scpls audio/x-shorten audio/x-speex audio/x-stm audio/x-tta audio/x-vorbis audio/x-vorbis+ogg audio/x-wav audio/x-wavpack audio/x-xm
-    - name: Set GNOME MPV as default video application
-      command: xdg-mime default io.github.GnomeMpv.desktop video/3gp video/3gpp video/3gpp2 video/divx video/dv video/fli video/flv video/mp2t video/mp4 video/mp4v-es video/mpeg video/mpeg-system video/msvideo video/ogg video/quicktime video/vnd.mpegurl video/vnd.rn-realvideo video/webm video/x-avi video/x-flc video/x-fli video/x-flv video/x-m4v video/x-matroska video/x-mpeg video/x-mpeg2 video/x-mpeg-system video/x-ms-asf video/x-msvideo video/x-ms-wm video/x-ms-wmv video/x-ms-wmx video/x-nsv video/x-ogm+ogg video/x-theora video/x-theora+ogg
-    - name: Enable autoload subtiles for Videos
-      dconf:
-        key: /org/gnome/Totem/autoload-subtitles
-        value: boolean true
-    - name: Set subtile encoding for Videos
-      dconf:
-        key: /org/gnome/Totem/subtitle-encoding
-        value: "'WINDOWS-1250'"
-    - name: Install Powerline
-      become: yes
-      dnf:
-        name: powerline,powerline-fonts
-        state: latest
-    - name: Install Powerline Gitstatus
-      become: yes
-      pip:
-        name: powerline-gitstatus
-        executable: pip3
-    - name: Prepare to configure Powerline
-      file:
-        path: "{{ansible_env.HOME}}/.config/powerline/{{item}}"
-        recurse: yes
-        state: directory
-      with_items:
-        - themes/shell
-        - colorschemes
-    - name: Configure Powerline color scheme
-      copy:
-        src: "{{playbook_dir}}/../data/powerline-colorscheme.json"
-        dest: "{{ansible_env.HOME}}/.config/powerline/colorschemes/default.json"
-    - name: Configure Powerline shell theme
-      copy:
-        src: "{{playbook_dir}}/../data/powerline-shell-theme.json"
-        dest: "{{ansible_env.HOME}}/.config/powerline/themes/shell/default.json"
-    - name: Configure Powerline shell
-      blockinfile:
-        path: "{{ansible_env.HOME}}/.bashrc"
-        create: yes
-        marker: "# {mark} POWERLINE BLOCK"
-        block: |
-          if [ -f `which powerline-daemon` ]; then
-            powerline-daemon -q
-            POWERLINE_BASH_CONTINUATION=1
-            POWERLINE_BASH_SELECT=1
-            . /usr/share/powerline/bash/powerline.sh
-          fi
+      when: flathub_flatpaks|selectattr('install')|list|count
+    - include: "includes/flathub-flatpak.yaml flatpak={{item}}"
+      loop: "{{flathub_flatpaks|selectattr('install')|list}}"
+    - include: includes/fonts.yaml
+      when: microsoft_fonts.install or fira_code_fonts.install or (vscode.install and vscode.configure)
     - name: Prepare to install GNOME Shell extensions
       shell: gnome-shell --version | cut -d" " -f3 | cut -d. -f1,2
       register: gnome_shell_version
-    - include: "includes/install-gnome-shell-extension.yaml uuid={{item}} shell_version={{gnome_shell_version.stdout}}"
-      with_items:
-        - dash-to-dock@micxgx.gmail.com
-        - TopIcons@phocean.net
-    - name: Set position on screen for Dash to Dock
-      dconf:
-        key: /org/gnome/shell/extensions/dash-to-dock/dock-position
-        value: "'BOTTOM'"
-    - name: Enable panel mode for Dash to Dock
-      dconf:
-        key: /org/gnome/shell/extensions/dash-to-dock/extend-height
-        value: boolean true
-    - name: Enable fixed icon size for Dash to Dock
-      dconf:
-        key: /org/gnome/shell/extensions/dash-to-dock/icon-size-fixed
-        value: boolean true
-    - name: Enable move applications button at the beginning of the dock for Dash to Dock
-      dconf:
-        key: /org/gnome/shell/extensions/dash-to-dock/show-apps-at-top
-        value: boolean true
-    - name: Enable use built-in theme for Dash to Dock
-      dconf:
-        key: /org/gnome/shell/extensions/dash-to-dock/apply-custom-theme
-        value: boolean true
-    - name: Set click action for Dash to Dock
-      dconf:
-        key: /org/gnome/shell/extensions/dash-to-dock/click-action
-        value: "'minimize'"
-    - name: Set scroll action for Dash to Dock
-      dconf:
-        key: /org/gnome/shell/extensions/dash-to-dock/scroll-action
-        value: "'cycle-windows'"
-    - name: Disable animate show applications for Dash to Dock
-      dconf:
-        key: /org/gnome/shell/extensions/dash-to-dock/animate-show-apps
-        value: boolean false
-    - name: Set desaturation for TopIcons Plus
-      dconf:
-        key: /org/gnome/shell/extensions/topicons/icon-saturation
-        value: 1.0
-    - name: Set icon size for TopIcons Plus
-      dconf:
-        key: /org/gnome/shell/extensions/topicons/icon-size
-        value: 20
-    - name: Set tray horizontal alignment for TopIcons Plus
-      dconf:
-        key: /org/gnome/shell/extensions/topicons/tray-pos
-        value: "'right'"
-    - name: Set tray offset for TopIcons Plus
-      dconf:
-        key: /org/gnome/shell/extensions/topicons/tray-order
-        value: 2
-    - name: Install gThumb
+      when: gnome_shell_extensions|selectattr('install')|list|count
+    - include: "includes/gnome-shell-extension.yaml shell_version={{gnome_shell_version.stdout}}"
+      loop: "{{gnome_shell_extensions|selectattr('install')|list}}"
+      loop_control:
+        loop_var: extension
+    - include: includes/dconf.yaml name="{{'Enable' if item.value == 'boolean true' else ('Disable' if item.value == 'boolean false' else 'Set')}} {{item.name}} for Terminal" key={{item.key}} value={{item.value}}
+      loop: "{{terminal.config}}"
+      when: terminal.configure
+    - include: includes/tilix.yaml
+      when: tilix.install
+    - include: includes/gthumb.yaml
+      when: gthumb.install
+    - include: includes/powerline.yaml
+      when: powerline.install
+    - include: includes/dconf.yaml name="{{'Enable' if item.value == 'boolean true' else ('Disable' if item.value == 'boolean false' else 'Set')}} {{item.name}} for GNOME" key={{item.key}} value={{item.value}}
+      loop: "{{gnome.config}}"
+      when: gnome.configure
+    - include: includes/dconf.yaml name="{{'Enable' if item.value == 'boolean true' else ('Disable' if item.value == 'boolean false' else 'Set')}} {{item.name}} for Videos" key={{item.key}} value={{item.value}}
+      loop: "{{videos.config}}"
+      when: videos.configure
+    - name: Set Videos as default music application
+      command: xdg-mime default org.gnome.Totem.desktop audio/3gpp audio/3gpp2 audio/aac audio/ac3 audio/AMR audio/AMR-WB audio/basic audio/dv audio/eac3 audio/flac audio/m4a audio/midi audio/mp1 audio/mp2 audio/mp3 audio/mp4 audio/mpeg audio/mpegurl audio/mpg audio/ogg audio/opus audio/prs.sid audio/scpls audio/vnd.rn-realaudio audio/wav audio/webm audio/x-aac audio/x-aiff audio/x-ape audio/x-flac audio/x-gsm audio/x-it audio/x-m4a audio/x-m4b audio/x-matroska audio/x-mod audio/x-mp1 audio/x-mp2 audio/x-mp3 audio/x-mpeg audio/x-mpegurl audio/x-mpg audio/x-ms-asf audio/x-ms-asx audio/x-ms-wax audio/x-ms-wma audio/x-musepack audio/x-opus+ogg audio/x-pn-aiff audio/x-pn-au audio/x-pn-realaudio audio/x-pn-realaudio-plugin audio/x-pn-wav audio/x-pn-windows-acm audio/x-realaudio audio/x-real-audio audio/x-s3m audio/x-sbc audio/x-scpls audio/x-shorten audio/x-speex audio/x-stm audio/x-tta audio/x-vorbis audio/x-vorbis+ogg audio/x-wav audio/x-wavpack audio/x-xm
+      when: videos.default
+    - include: includes/gnome-mpv.yaml
+      when: gnome_mpv.install
+    - name: Install PHP
       become: yes
       dnf:
-        name: gthumb
+        name: php,php-mysqlnd,php-gd,php-mbstring
         state: latest
-    - name: Set browser thumbnail size for gThumb
-      dconf:
-        key: /org/gnome/gthumb/browser/thumbnail-size
-        value: 200
-    - name: Disable show menubar by default in new terminals for Terminal
-      dconf:
-        key: /org/gnome/terminal/legacy/default-show-menubar
-        value: boolean false
-    - name: Set number of columns for Terminal default profile
-      dconf:
-        key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/default-size-columns
-        value: 160
-    - name: Set number of rows for Terminal default profile
-      dconf:
-        key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/default-size-rows
-        value: 48
-    - name: Enable transparent background for Terminal default profile
-      dconf:
-        key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-transparent-background
-        value: boolean true
-    - name: Set transparency for Terminal default profile
-      dconf:
-        key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/background-transparency-percent
-        value: 10
-    - name: Disable show scrollbar for Terminal default profile
-      dconf:
-        key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/scrollbar-policy
-        value: "'never'"
-    - name: Install Tilix
+      when: php.install
+    - name: Enable and restart Apache HTTP Server
+      become: yes
+      service:
+        name: httpd
+        enabled: yes
+        state: restarted
+      when: httpd.enable
+    - include: includes/mariadb.yaml
+      when: mariadb.install
+    - name: Install Go
       become: yes
       dnf:
-        name: tilix
+        name: golang
         state: latest
-    - name: Set theme variant for Tilix
-      dconf:
-        key: /com/gexperts/Tilix/theme-variant
-        value: "'dark'"
-    - name: Disable show the terminal title even if it's only terminal for Tilix
-      dconf:
-        key: /com/gexperts/Tilix/terminal-title-show-when-single
-        value: boolean false
-    - name: Set number of columns for Tilix default profile
-      dconf:
-        key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/default-size-columns
-        value: 160
-    - name: Set number of rows for Tilix default profile
-      dconf:
-        key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/default-size-rows
-        value: 48
-    - name: Set transparency for Tilix default profile
-      dconf:
-        key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/background-transparency-percent
-        value: 10
-    - name: Disable show scrollbar for Tilix default profile
-      dconf:
-        key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/show-scrollbar
-        value: boolean false
+      when: golang.install
+    - name: Install Node.js
+      become: yes
+      dnf:
+        name: nodejs
+        state: latest
+      when: nodejs.install or bower.install or polymer.install or typescript.install
+    - name: Install Bower
+      become: yes
+      npm:
+        name: bower
+        global: yes
+      when: bower.install
+    - name: Install Polymer CLI
+      become: yes
+      command: npm install -g --unsafe-perm polymer-cli
+      when: polymer.install
+    - name: Install TypeScript
+      become: yes
+      npm:
+        name: typescript
+        global: yes
+      when: typescript.install

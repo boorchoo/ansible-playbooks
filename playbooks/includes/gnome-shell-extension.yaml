@@ -1,0 +1,15 @@
+- name: Prepare to install {{extension.name}} GNOME Shell extension
+  file:
+    path: "{{ansible_env.HOME}}/.local/share/gnome-shell/extensions/{{extension.uuid}}"
+    recurse: yes
+    state: directory
+- name: Install {{extension.name}} GNOME Shell extension
+  unarchive:
+    src: "https://extensions.gnome.org{{lookup('url','https://extensions.gnome.org/extension-info/?uuid={{extension.uuid}}&shell_version={{shell_version}}')|from_json|json_query('download_url')}}"
+    remote_src: yes
+    dest: "{{ansible_env.HOME}}/.local/share/gnome-shell/extensions/{{extension.uuid}}"
+- include: includes/dconf.yaml name="{{'Enable' if item.value == 'boolean true' else ('Disable' if item.value == 'boolean false' else 'Set')}} {{item.name}} for {{extension.name}} GNOME Shell extension" key={{item.key}} value={{item.value}}
+  loop: "{{extension.config}}"
+  when: extension.configure
+- name: Enable {{extension.name}} GNOME Shell extension
+  shell: gnome-shell-extension-tool --enable-extension="{{extension.uuid}}" || echo ""

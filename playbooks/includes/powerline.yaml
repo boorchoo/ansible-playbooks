@@ -1,0 +1,42 @@
+- name: Install Powerline
+  become: yes
+  dnf:
+    name: powerline,powerline-fonts
+    state: latest
+- name: Install Powerline Gitstatus
+  become: yes
+  pip:
+    name: powerline-gitstatus
+    executable: pip3
+- name: Prepare to configure Powerline
+  file:
+    path: "{{ansible_env.HOME}}/.config/powerline/{{item}}"
+    recurse: yes
+    state: directory
+  with_items:
+    - themes/shell
+    - colorschemes
+  when: powerline.configure
+- name: Configure Powerline color scheme
+  copy:
+    src: "{{playbook_dir}}/../data/powerline-colorscheme.json"
+    dest: "{{ansible_env.HOME}}/.config/powerline/colorschemes/default.json"
+  when: powerline.configure
+- name: Configure Powerline shell theme
+  copy:
+    src: "{{playbook_dir}}/../data/powerline-shell-theme.json"
+    dest: "{{ansible_env.HOME}}/.config/powerline/themes/shell/default.json"
+  when: powerline.configure
+- name: Configure Powerline shell
+  blockinfile:
+    path: "{{ansible_env.HOME}}/.bashrc"
+    create: yes
+    marker: "# {mark} POWERLINE BLOCK"
+    block: |
+      if [ -f `which powerline-daemon` ]; then
+        powerline-daemon -q
+        POWERLINE_BASH_CONTINUATION=1
+        POWERLINE_BASH_SELECT=1
+        . /usr/share/powerline/bash/powerline.sh
+      fi
+  when: powerline.configure

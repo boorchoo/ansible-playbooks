@@ -1,0 +1,19 @@
+- name: Import Skype GPG key
+  become: yes
+  rpm_key:
+    key: https://repo.skype.com/data/SKYPE-GPG-KEY
+    state: present
+- name: Add Skype repository
+  become: yes
+  yum_repository:
+    name: skype-stable
+    description: skype (stable)
+    baseurl: https://repo.skype.com/rpm/stable/
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: https://repo.skype.com/data/SKYPE-GPG-KEY
+- name: Install Skype
+  become: yes
+  dnf:
+    name: skypeforlinux
+    state: latest

@@ -1,0 +1,10 @@
+- name: Install Yarn repository
+  become: yes
+  get_url:
+    url: https://dl.yarnpkg.com/rpm/yarn.repo
+    dest: /etc/yum.repos.d/yarn.repo
+- name: Install Yarn
+  become: yes
+  dnf:
+    name: yarn
+    state: latest

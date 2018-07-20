@@ -1,0 +1,8 @@
+- name: Install Tilix
+  become: yes
+  dnf:
+    name: tilix
+    state: latest
+- include: dconf.yaml name="{{'Enable' if item.value == 'boolean true' else ('Disable' if item.value == 'boolean false' else 'Set')}} {{item.name}} for Tilix" key={{item.key}} value={{item.value}}
+  loop: "{{tilix.config}}"
+  when: tilix.configure

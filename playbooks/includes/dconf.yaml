@@ -1,0 +1,4 @@
+- name: "{{name}}"
+  dconf:
+    key: "{{key}}"
+    value: "{{value}}"

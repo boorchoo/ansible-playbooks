@@ -1,0 +1,6 @@
+- name: Install {{item.name}} from Flathub
+  flatpak:
+    name: "{{item.ref}}"
+    state: present
+    remote: flathub
+    method: user
