@@ -37,6 +37,18 @@
       - name: Viber
         ref: com.viber.Viber
         install: yes
+      - name: Gradio
+        ref: de.haeckerfelix.gradio
+        install: no
+      - name: PulseEffects
+        ref: com.github.wwmm.pulseeffects
+        install: no
+      - name: FontFinder
+        ref: io.github.mmstick.FontFinder
+        install: no
+      - name: Vocal
+        ref: com.github.needleandthread.vocal
+        install: no
     microsoft_fonts:
       install: yes
     fira_code_fonts:
