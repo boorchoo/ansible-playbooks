@@ -1,4 +1,4 @@
 - name: "{{name}}"
   dconf:
     key: "{{key}}"
-    value: "{{value}}"
+    value: "{{value|string}}"
