@@ -191,6 +191,10 @@
       install: yes
     typescript:
       install: yes
+    postman:
+      install: yes
+    processing:
+      install: yes
   tasks:
     - name: Update all packages
       become: yes
@@ -297,3 +301,7 @@
         name: typescript
         global: yes
       when: typescript.install
+    - include: includes/postman.yaml
+      when: postman.install
+    - include: includes/processing.yaml version=3.3.7
+      when: processing.install

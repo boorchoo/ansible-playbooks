@@ -1,0 +1,28 @@
+- name: Prepare to install Postman
+  file:
+    path: "{{ansible_env.HOME}}/{{item}}"
+    recurse: yes
+    state: directory
+  loop:
+    - bin
+    - .local/share/applications
+- name: Install Postman
+  unarchive:
+    src: "https://dl.pstmn.io/download/latest/linux64"
+    remote_src: yes
+    dest: "{{ansible_env.HOME}}/bin"
+- name: Add Postman to applications
+  copy:
+    dest: "{{ansible_env.HOME}}/.local/share/applications/Postman.desktop"
+    content: |
+      [Desktop Entry]
+      Name=Postman
+      GenericName=API Client
+      X-GNOME-FullName=Postman API Client
+      Comment=Make and view REST API calls and responses
+      Keywords=api;
+      Exec={{ansible_env.HOME}}/bin/Postman/app/Postman
+      Terminal=false
+      Type=Application
+      Icon={{ansible_env.HOME}}/bin/Postman/app/resources/app/assets/icon.png
+      Categories=Development;Utilities;

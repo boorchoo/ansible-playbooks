@@ -1,0 +1,24 @@
+- name: Prepare to install Processing
+  file:
+    path: "{{ansible_env.HOME}}/{{item}}"
+    recurse: yes
+    state: directory
+  loop:
+    - bin
+    - .local/share/applications
+- name: Install Processing {{version}}
+  unarchive:
+    src: "http://download.processing.org/processing-{{version}}-linux64.tgz"
+    remote_src: yes
+    dest: "{{ansible_env.HOME}}/bin"
+- name: Add Processing to applications
+  copy:
+    dest: "{{ansible_env.HOME}}/.local/share/applications/processing.desktop"
+    content: |
+      [Desktop Entry]
+      Encoding=UTF-8
+      Name=Processing
+      Exec={{ansible_env.HOME}}/bin/processing-{{version}}/processing
+      Icon={{ansible_env.HOME}}/bin/processing-{{version}}/lib/icons/pde-256.png
+      Type=Application
+      Categories=Development;
