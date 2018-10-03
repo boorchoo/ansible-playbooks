@@ -14,7 +14,7 @@
         - eamodio.gitlens
         - felixfbecker.php-intellisense
         - felixfbecker.php-debug
-        - polymer.polymer-ide
+        - bierner.lit-html
         - ms-vscode.go
         - zhuangtongfa.material-theme
       configure: yes
@@ -36,6 +36,9 @@
         install: yes
       - name: Viber
         ref: com.viber.Viber
+        install: yes
+      - name: Postman
+        ref: com.getpostman.Postman
         install: yes
       - name: Gradio
         ref: de.haeckerfelix.gradio
@@ -203,8 +206,6 @@
       install: yes
     typescript:
       install: yes
-    postman:
-      install: yes
     processing:
       install: yes
     mailspring:
@@ -327,8 +328,6 @@
         name: typescript
         global: yes
       when: typescript.install
-    - include: includes/postman.yaml
-      when: postman.install
     - include: includes/processing.yaml version=3.3.7
       when: processing.install
     - include: includes/mailspring.yaml
