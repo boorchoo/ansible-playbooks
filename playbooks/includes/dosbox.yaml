@@ -1,3 +1,13 @@
+- name: Prepare to configure SELinux for DOSBox
+  command: getenforce
+  register: sestatus
+- name: Configure SELinux for DOSBox
+  become: yes
+  seboolean:
+    name: selinuxuser_execheap
+    state: yes
+    persistent: yes
+  when: '"Enabled" in sestatus.stdout'
 - name: Install DOSBox
   become: yes
   dnf:
@@ -16,3 +26,15 @@
     no_extra_spaces: yes
   with_dict: "{{dosbox.config}}"
   when: dosbox.configure
+- name: Prepare to configure DOSBox autoexec
+  file:
+    path: "{{ansible_env.HOME}}/dosbox"
+    state: directory
+- name: Configure DOSBox autoexec
+  blockinfile:
+    path: "{{dosbox_conf.stdout}}"
+    marker: "# {mark} AUTOEXEC BLOCK"
+    insertafter: "# You can put your MOUNT lines here."
+    block: |
+      MOUNT C ~/dosbox
+      C:
