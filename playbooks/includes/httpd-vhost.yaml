@@ -1,0 +1,16 @@
+- name: Create virtual host configuration for {{host}}
+  become: yes
+  template:
+    src: "{{playbook_dir}}/../data/httpd-vhost.conf"
+    dest: /etc/httpd/conf.d/{{ host }}.conf
+- name: Preparing to add {{host}} to /etc/hosts
+  shell: cat /etc/hosts | grep {{ host }} | wc -l
+  register: test_host
+- name: Add {{host}} to /etc/hosts
+  become: yes
+  lineinfile:
+    path: /etc/hosts
+    regexp: '^127\.0\.0\.1(.*)$'
+    line: '127.0.0.1\1 {{ host }}'
+    backrefs: yes
+  when: test_host.stdout == "0"
