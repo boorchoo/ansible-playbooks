@@ -223,6 +223,8 @@
         - sdl.windowresolution: '1920x1080'
         - sdl.output: 'opengl'
         - sdl.usescancodes: 'false'
+    composer:
+      install: yes
   tasks:
     - name: Update all packages
       become: yes
@@ -338,3 +340,6 @@
       when: master_pdf_editor.install
     - include: includes/dosbox.yaml
       when: dosbox.install
+    - name: Install Composer
+      command: wget https://raw.githubusercontent.com/composer/getcomposer.org/d3a6ed2ed96ff423fb1991f22e4bcabd3db662f8/web/installer -O - -q | php -- --quiet --install-dir={{ansible_env.HOME}}/bin --filename=composer
+      when: composer.install
