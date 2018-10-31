@@ -18,28 +18,29 @@
         - ms-vscode.go
         - zhuangtongfa.material-theme
       configure: yes
-    slack:
-      install: yes
     skype:
       install: yes
     yarn:
       install: yes
     flathub_flatpaks:
+      - name: Slack
+        ref: com.slack.Slack
+        install: no
       - name: Lollypop
         ref: org.gnome.Lollypop
-        install: yes
+        install: no
       - name: GIMP
         ref: org.gimp.GIMP
-        install: yes
+        install: no
       - name: MyPaint
         ref: org.mypaint.MyPaint
-        install: yes
+        install: no
       - name: Viber
         ref: com.viber.Viber
-        install: yes
+        install: no
       - name: Postman
         ref: com.getpostman.Postman
-        install: yes
+        install: no
       - name: Gradio
         ref: de.haeckerfelix.gradio
         install: no
@@ -240,8 +241,6 @@
       when: google_chrome.install
     - include: includes/vscode.yaml
       when: vscode.install
-    - include: includes/slack.yaml
-      when: slack.install
     - include: includes/skype.yaml
       when: skype.install
     - include: includes/yarn.yaml

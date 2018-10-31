@@ -25,9 +25,14 @@
 - name: Configure Powerline shell theme
   copy:
     src: "{{playbook_dir}}/../data/powerline-shell-theme.json"
-    dest: "{{ansible_env.HOME}}/.config/powerline/themes/shell/default.json"
+    dest: "{{ansible_env.HOME}}/.config/powerline/themes/shell/default_leftonly.json"
   when: powerline.configure
-- name: Configure Powerline shell
+- name: Configure Powerline
+  copy:
+    src: "{{playbook_dir}}/../data/powerline-config.json"
+    dest: "{{ansible_env.HOME}}/.config/powerline/config.json"
+  when: powerline.configure
+- name: Configure bash for Powerline
   blockinfile:
     path: "{{ansible_env.HOME}}/.bashrc"
     create: yes
