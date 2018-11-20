@@ -25,22 +25,22 @@
     flathub_flatpaks:
       - name: Slack
         ref: com.slack.Slack
-        install: no
+        install: yes
       - name: Lollypop
         ref: org.gnome.Lollypop
-        install: no
+        install: yes
       - name: GIMP
         ref: org.gimp.GIMP
-        install: no
+        install: yes
       - name: MyPaint
         ref: org.mypaint.MyPaint
-        install: no
+        install: yes
       - name: Viber
         ref: com.viber.Viber
-        install: no
+        install: yes
       - name: Postman
         ref: com.getpostman.Postman
-        install: no
+        install: yes
       - name: Gradio
         ref: de.haeckerfelix.gradio
         install: no
@@ -49,9 +49,6 @@
         install: no
       - name: FontFinder
         ref: io.github.mmstick.FontFinder
-        install: no
-      - name: Vocal
-        ref: com.github.needleandthread.vocal
         install: no
     microsoft_fonts:
       install: yes
@@ -248,11 +245,7 @@
     - include: includes/yarn.yaml
       when: yarn.install
     - name: Add Flathub flatpak repository
-      flatpak_remote:
-        name: flathub
-        state: present
-        flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
-        method: user
+      command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
       when: flathub_flatpaks|selectattr('install')|list|count
     - include: "includes/flathub-flatpak.yaml flatpak={{item}}"
       loop: "{{flathub_flatpaks|selectattr('install')|list}}"
@@ -340,6 +333,5 @@
       when: master_pdf_editor.install
     - include: includes/dosbox.yaml
       when: dosbox.install
-    - name: Install Composer
-      command: wget https://raw.githubusercontent.com/composer/getcomposer.org/d3a6ed2ed96ff423fb1991f22e4bcabd3db662f8/web/installer -O - -q | php -- --quiet --install-dir={{ansible_env.HOME}}/bin --filename=composer
+    - include: includes/composer.yaml
       when: composer.install
