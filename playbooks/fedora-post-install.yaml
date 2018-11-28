@@ -222,6 +222,8 @@
         - sdl.usescancodes: 'false'
     composer:
       install: yes
+    typora:
+      install: yes
   tasks:
     - name: Update all packages
       become: yes
@@ -335,3 +337,5 @@
       when: dosbox.install
     - include: includes/composer.yaml
       when: composer.install
+    - include: includes/typora.yaml
+      when: typora.install
