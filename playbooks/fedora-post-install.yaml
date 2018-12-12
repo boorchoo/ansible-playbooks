@@ -41,6 +41,9 @@
       - name: Postman
         ref: com.getpostman.Postman
         install: yes
+      - name: Spotify
+        ref: com.spotify.Client
+        install: yes
       - name: Gradio
         ref: de.haeckerfelix.gradio
         install: no
@@ -224,6 +227,28 @@
       install: yes
     typora:
       install: yes
+    inkscape:
+      install: yes
+    gnome_subtitles:
+      install: yes
+    easytag:
+      install: yes
+    transmission:
+      install: yes
+    audacity:
+      install: yes
+    soundconverter:
+      install: yes
+    sound_recorder:
+      install: yes
+    mc:
+      install: yes
+    tweaks:
+      install: yes
+    vlc:
+      install: yes
+    utils:
+      install: yes
   tasks:
     - name: Update all packages
       become: yes
@@ -339,3 +364,69 @@
       when: composer.install
     - include: includes/typora.yaml
       when: typora.install
+    - name: Install Inkscape
+      become: yes
+      dnf:
+        name: inkscape
+        state: latest
+      when: inkscape.install
+    - name: Install Gnome Subtitles
+      become: yes
+      dnf:
+        name: gnome-subtitles
+        state: latest
+      when: gnome_subtitles.install
+    - name: Install EasyTAG
+      become: yes
+      dnf:
+        name: easytag
+        state: latest
+      when: easytag.install
+    - name: Install Transmission
+      become: yes
+      dnf:
+        name: transmission
+        state: latest
+      when: transmission.install
+    - name: Install Audacity
+      become: yes
+      dnf:
+        name: audacity-freeworld
+        state: latest
+      when: audacity.install
+    - name: Install Sound Converter
+      become: yes
+      dnf:
+        name: soundconverter
+        state: latest
+      when: soundconverter.install
+    - name: Install Sound Recorder
+      become: yes
+      dnf:
+        name: gnome-sound-recorder
+        state: latest
+      when: sound_recorder.install
+    - name: Install Midnight Commander
+      become: yes
+      dnf:
+        name: mc
+        state: latest
+      when: mc.install
+    - name: Install Tweaks
+      become: yes
+      dnf:
+        name: gnome-tweaks
+        state: latest
+      when: tweaks.install
+    - name: Install VLC media player
+      become: yes
+      dnf:
+        name: vlc
+        state: latest
+      when: vlc.install
+    - name: Install utilities
+      become: yes
+      dnf:
+        name: mediawriter,lm_sensors,unrar,mkvtoolnix
+        state: latest
+      when: utils.install
