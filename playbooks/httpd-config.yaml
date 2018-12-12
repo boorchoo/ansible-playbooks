@@ -28,7 +28,7 @@
         name: httpd_read_user_content
         state: yes
         persistent: yes
-      when: '"Enabled" in sestatus.stdout and home_docroot'
+      when: '"Enforcing" in sestatus.stdout and home_docroot'
     - name: Enable and restart Apache HTTP Server
       become: yes
       service:
