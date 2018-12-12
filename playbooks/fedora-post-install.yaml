@@ -247,7 +247,7 @@
     - include: includes/yarn.yaml
       when: yarn.install
     - name: Add Flathub flatpak repository
-      command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+      command: flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
       when: flathub_flatpaks|selectattr('install')|list|count
     - include: "includes/flathub-flatpak.yaml flatpak={{item}}"
       loop: "{{flathub_flatpaks|selectattr('install')|list}}"
@@ -284,7 +284,7 @@
     - name: Install PHP
       become: yes
       dnf:
-        name: php,php-mysqlnd,php-gd,php-mbstring
+        name: php,php-mysqlnd,php-gd,php-mbstring,php-json
         state: latest
       when: php.install
     - name: Enable and restart Apache HTTP Server
