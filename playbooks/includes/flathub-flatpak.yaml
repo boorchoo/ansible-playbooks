@@ -1,2 +1,3 @@
 - name: Install {{item.name}} from Flathub
-  command: "flatpak install --user -y --reinstall flathub {{item.ref}}"
+  become: yes
+  command: "flatpak install -y --reinstall flathub {{item.ref}}"
