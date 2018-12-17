@@ -7,7 +7,7 @@
     name: selinuxuser_execheap
     state: yes
     persistent: yes
-  when: '"Enabled" in sestatus.stdout'
+  when: '"Enforcing" in sestatus.stdout'
 - name: Install DOSBox
   become: yes
   dnf:
