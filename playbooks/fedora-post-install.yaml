@@ -239,8 +239,6 @@
       install: yes
     soundconverter:
       install: yes
-    sound_recorder:
-      install: yes
     mc:
       install: yes
     tweaks:
@@ -401,12 +399,6 @@
         name: soundconverter
         state: latest
       when: soundconverter.install
-    - name: Install Sound Recorder
-      become: yes
-      dnf:
-        name: gnome-sound-recorder
-        state: latest
-      when: sound_recorder.install
     - name: Install Midnight Commander
       become: yes
       dnf:
