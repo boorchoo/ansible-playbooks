@@ -3,18 +3,18 @@
     vhosts:
       - host: example.local
         docroot: /var/www/example
+    writeable_paths:
+      - /example/writeable/path
   tasks:
     - name: Install Apache HTTP Server
       become: yes
       dnf:
         name: httpd
         state: latest
-    - include: "includes/httpd-vhost.yaml host={{item.host}} docroot={{item.docroot}}"
-      loop: "{{vhosts}}"
     - name: Check if Apache HTTP Server needs to access {{ansible_env.HOME}}
       set_fact:
         home_docroot: "{{vhosts | selectattr('docroot', 'match', '^' + ansible_env.HOME + '/') | list | length > 0}}"
-    - name: Allow Apache HTTP Server to access {{ansible_env.HOME}}
+    - name: Allow Apache HTTP Server read access to {{ansible_env.HOME}}
       file:
         path: "{{ansible_env.HOME}}"
         mode: 0711
@@ -22,13 +22,25 @@
     - name: Get SELinux status
       command: getenforce
       register: sestatus
-    - name: Configure SELinux to allow Apache HTTP Server to access {{ansible_env.HOME}}
+    - name: Configure SELinux to allow Apache HTTP Server read access to {{ansible_env.HOME}}
       become: yes
       seboolean:
         name: httpd_read_user_content
         state: yes
         persistent: yes
       when: '"Enforcing" in sestatus.stdout and home_docroot'
+    - include: "includes/httpd-vhost.yaml host={{item.host}} docroot={{item.docroot}}"
+      loop: "{{vhosts}}"
+    - name: Allow Apache HTTP Server write access to writable paths
+      file:
+        path: "{{item}}"
+        mode: 0777
+      loop: "{{[] if writeable_paths is none else writeable_paths}}"
+    - name: Configure SELinux to allow Apache HTTP Server write access to writable paths
+      become: yes
+      command: chcon -R -t httpd_sys_rw_content_t {{item}}
+      loop: "{{[] if writeable_paths is none else writeable_paths}}"
+      when: '"Enforcing" in sestatus.stdout'
     - name: Enable and restart Apache HTTP Server
       become: yes
       service:
