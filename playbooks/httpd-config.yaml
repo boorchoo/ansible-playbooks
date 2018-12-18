@@ -3,8 +3,8 @@
     vhosts:
       - host: example.local
         docroot: /var/www/example
-    writeable_paths:
-      - /example/writeable/path
+    writable_paths:
+      - /example/writable/path
   tasks:
     - name: Install Apache HTTP Server
       become: yes
@@ -35,11 +35,11 @@
       file:
         path: "{{item}}"
         mode: 0777
-      loop: "{{[] if writeable_paths is none else writeable_paths}}"
+      loop: "{{[] if writable_paths is none else writable_paths}}"
     - name: Configure SELinux to allow Apache HTTP Server write access to writable paths
       become: yes
       command: chcon -R -t httpd_sys_rw_content_t {{item}}
-      loop: "{{[] if writeable_paths is none else writeable_paths}}"
+      loop: "{{[] if writable_paths is none else writable_paths}}"
       when: '"Enforcing" in sestatus.stdout'
     - name: Enable and restart Apache HTTP Server
       become: yes
