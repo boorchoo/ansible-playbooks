@@ -30,11 +30,13 @@
         persistent: yes
       when: '"Enforcing" in sestatus.stdout and home_docroot'
     - include: "includes/httpd-vhost.yaml host={{item.host}} docroot={{item.docroot}}"
-      loop: "{{vhosts}}"
-    - name: Allow Apache HTTP Server write access to writable paths
+      loop: "{{[] if vhosts is none else vhosts}}"
+    - name: Prepare and allow Apache HTTP Server write access to writable paths
       file:
         path: "{{item}}"
         mode: 0777
+        recurse: yes
+        state: directory
       loop: "{{[] if writable_paths is none else writable_paths}}"
     - name: Configure SELinux to allow Apache HTTP Server write access to writable paths
       become: yes
