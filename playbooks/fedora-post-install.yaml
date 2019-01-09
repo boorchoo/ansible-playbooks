@@ -17,6 +17,7 @@
         - bierner.lit-html
         - ms-vscode.go
         - zhuangtongfa.material-theme
+        - oderwat.indent-rainbow
       configure: yes
     skype:
       install: yes

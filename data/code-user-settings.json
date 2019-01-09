@@ -8,5 +8,8 @@
   "terminal.integrated.fontFamily": "Fira Code Light",
   "terminal.integrated.fontSize": 15,
   "git.confirmSync": false,
-  "gitlens.historyExplorer.location": "scm"
+  "gitlens.views.fileHistory.location": "scm",
+  "gitlens.views.lineHistory.location": "scm",
+  "files.autoSave": "off",
+  "breadcrumbs.enabled": true
 }
