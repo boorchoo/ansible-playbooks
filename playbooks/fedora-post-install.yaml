@@ -259,7 +259,7 @@
     - name: Install GStreamer plugins
       become: yes
       dnf:
-        name: gstreamer-plugins-bad,gstreamer-plugins-good,gstreamer-plugins-ugly,gstreamer-plugins-bad-free,gstreamer-plugins-good-extras,gstreamer-plugins-bad-nonfree,gstreamer-plugins-bad-free-extras,gstreamer1-plugins-ugly,gstreamer1-plugins-good-extras,gstreamer1-plugins-bad-nonfree,gstreamer1-plugins-bad-freeworld,gstreamer1-plugins-bad-free-extras
+        name: gstreamer-plugins-bad,gstreamer-plugins-good,gstreamer-plugins-ugly,gstreamer-plugins-bad-free,gstreamer-plugins-good-extras,gstreamer-plugins-bad-nonfree,gstreamer-plugins-bad-free-extras,gstreamer1-plugins-ugly,gstreamer1-plugins-good-extras,gstreamer1-plugins-bad-nonfree,gstreamer1-plugins-bad-freeworld,gstreamer1-plugins-bad-free-extras,gstreamer1-libav
         state: latest
       when: gstreamer_plugins.install
     - include: includes/google-chrome.yaml
