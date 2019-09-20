@@ -63,6 +63,10 @@
     fira_code_fonts:
       install: yes
     gnome_shell_extensions:
+      - name: Dash to Panel
+        uuid: dash-to-panel@jderose9.github.com
+        install: yes
+        configure: no
       - name: Dash to Dock
         uuid: dash-to-dock@micxgx.gmail.com
         install: no
