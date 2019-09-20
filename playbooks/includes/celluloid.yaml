@@ -1,0 +1,11 @@
+- name: Install Celluloid
+  become: yes
+  dnf:
+    name: celluloid
+    state: latest
+- name: Set Celluloid as default video application
+  command: xdg-mime default io.github.celluloid_player.Celluloid.desktop video/3gp video/3gpp video/3gpp2 video/divx video/dv video/fli video/flv video/mp2t video/mp4 video/mp4v-es video/mpeg video/mpeg-system video/msvideo video/ogg video/quicktime video/vnd.mpegurl video/vnd.rn-realvideo video/webm video/x-avi video/x-flc video/x-fli video/x-flv video/x-m4v video/x-matroska video/x-mpeg video/x-mpeg2 video/x-mpeg-system video/x-ms-asf video/x-msvideo video/x-ms-wm video/x-ms-wmv video/x-ms-wmx video/x-nsv video/x-ogm+ogg video/x-theora video/x-theora+ogg
+  when: celluloid.default
+- include: includes/dconf.yaml name="{{'Enable' if item.value == 'boolean true' else ('Disable' if item.value == 'boolean false' else 'Set')}} {{item.name}} for Celluloid" key={{item.key}} value={{item.value}}
+  loop: "{{celluloid.config}}"
+  when: celluloid.configure

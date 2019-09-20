@@ -12,12 +12,13 @@
       install_extensions:
         - editorconfig.editorconfig
         - eamodio.gitlens
-        - felixfbecker.php-intellisense
-        - felixfbecker.php-debug
-        - bierner.lit-html
-        - ms-vscode.go
-        - zhuangtongfa.material-theme
+        - equinusocio.vsc-material-theme
+        - equinusocio.vsc-material-theme-icons
+        - bmewburn.vscode-intelephense-client
+        - runem.lit-plugin
         - oderwat.indent-rainbow
+        - 2gua.rainbow-brackets
+        - ms-vscode.go
       configure: yes
     skype:
       install: yes
@@ -51,6 +52,9 @@
       - name: PulseEffects
         ref: com.github.wwmm.pulseeffects
         install: no
+      - name: FontForge
+        ref: org.fontforge.FontForge
+        install: no
       - name: FontFinder
         ref: io.github.mmstick.FontFinder
         install: no
@@ -61,7 +65,7 @@
     gnome_shell_extensions:
       - name: Dash to Dock
         uuid: dash-to-dock@micxgx.gmail.com
-        install: yes
+        install: no
         configure: yes
         config:
           - name: position on screen
@@ -183,13 +187,13 @@
         - name: subtitle encoding
           key: /org/gnome/Totem/subtitle-encoding
           value: "'WINDOWS-1250'"
-    gnome_mpv:
+    celluloid:
       install: yes
       default: yes
       configure: yes
       config:
         - name: MVP options
-          key: /io/github/gnome-mpv/mpv-options
+          key: /io/github/celluloid-player/celluloid/mpv-options
           value: "'--sub-auto=fuzzy --sub-codepage=utf8:cp1250 --sub-text-color=#ffff99 --sub-scale=1.5 --ass-style-override=strip'"
     php:
       install: yes
@@ -203,9 +207,9 @@
     nodejs:
       install: yes
     bower:
-      install: yes
+      install: no
     polymer:
-      install: yes
+      install: no
     typescript:
       install: yes
     processing:
@@ -255,7 +259,7 @@
         name: '*'
         state: latest
     - include: includes/rpm-fusion.yaml
-      when: rpm_fusion.install or gstreamer_plugins.install or gnome_mpv.install
+      when: rpm_fusion.install or gstreamer_plugins.install or celluloid.install
     - name: Install GStreamer plugins
       become: yes
       dnf:
@@ -304,8 +308,8 @@
     - name: Set Videos as default music application
       command: xdg-mime default org.gnome.Totem.desktop audio/3gpp audio/3gpp2 audio/aac audio/ac3 audio/AMR audio/AMR-WB audio/basic audio/dv audio/eac3 audio/flac audio/m4a audio/midi audio/mp1 audio/mp2 audio/mp3 audio/mp4 audio/mpeg audio/mpegurl audio/mpg audio/ogg audio/opus audio/prs.sid audio/scpls audio/vnd.rn-realaudio audio/wav audio/webm audio/x-aac audio/x-aiff audio/x-ape audio/x-flac audio/x-gsm audio/x-it audio/x-m4a audio/x-m4b audio/x-matroska audio/x-mod audio/x-mp1 audio/x-mp2 audio/x-mp3 audio/x-mpeg audio/x-mpegurl audio/x-mpg audio/x-ms-asf audio/x-ms-asx audio/x-ms-wax audio/x-ms-wma audio/x-musepack audio/x-opus+ogg audio/x-pn-aiff audio/x-pn-au audio/x-pn-realaudio audio/x-pn-realaudio-plugin audio/x-pn-wav audio/x-pn-windows-acm audio/x-realaudio audio/x-real-audio audio/x-s3m audio/x-sbc audio/x-scpls audio/x-shorten audio/x-speex audio/x-stm audio/x-tta audio/x-vorbis audio/x-vorbis+ogg audio/x-wav audio/x-wavpack audio/x-xm
       when: videos.default
-    - include: includes/gnome-mpv.yaml
-      when: gnome_mpv.install
+    - include: includes/celluloid.yaml
+      when: celluloid.install
     - name: Install PHP
       become: yes
       dnf:
