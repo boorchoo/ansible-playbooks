@@ -1,15 +1,17 @@
 {
   "telemetry.enableTelemetry": false,
   "telemetry.enableCrashReporter": false,
-  "workbench.colorTheme": "One Dark Pro",
+  "workbench.colorTheme": "Material Theme Darker High Contrast",
   "editor.fontFamily": "Fira Code Light",
   "editor.fontSize": 15,
   "editor.fontLigatures": true,
   "terminal.integrated.fontFamily": "Fira Code Light",
   "terminal.integrated.fontSize": 15,
   "git.confirmSync": false,
-  "gitlens.views.fileHistory.location": "scm",
-  "gitlens.views.lineHistory.location": "scm",
   "files.autoSave": "off",
-  "breadcrumbs.enabled": true
+  "window.titleBarStyle": "custom",
+  "workbench.iconTheme": "eq-material-theme-icons",
+  "php.suggest.basic": false,
+  "gitlens.views.fileHistory.location": "scm",
+  "gitlens.views.lineHistory.location": "scm"
 }

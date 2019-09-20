@@ -28,6 +28,6 @@
   when: vscode.configure
 - name: Configure Visual Studio Code
   copy:
-    src: "{{playbook_dir}}/../data/code-user-settings.json"
+    src: "{{playbook_dir}}/../data/vscode-settings.json"
     dest: "{{ansible_env.HOME}}/.config/Code/User/settings.json"
   when: vscode.configure
