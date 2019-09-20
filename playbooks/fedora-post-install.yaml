@@ -357,7 +357,7 @@
         name: typescript
         global: yes
       when: typescript.install
-    - include: includes/processing.yaml version=3.3.7
+    - include: includes/processing.yaml version=3.5.3
       when: processing.install
     - include: includes/mailspring.yaml
       when: mailspring.install
