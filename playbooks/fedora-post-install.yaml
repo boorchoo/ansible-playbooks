@@ -96,23 +96,10 @@
           - name: animate show applications
             key: /org/gnome/shell/extensions/dash-to-dock/animate-show-apps
             value: boolean false
-      - name: TopIcons Plus
-        uuid: TopIcons@phocean.net
+      - name: KStatusNotifierItem/AppIndicator Support
+        uuid: appindicatorsupport@rgcjonas.gmail.com
         install: yes
-        configure: yes
-        config:
-          - name: desaturation
-            key: /org/gnome/shell/extensions/topicons/icon-saturation
-            value: 1.0
-          - name: icon size
-            key: /org/gnome/shell/extensions/topicons/icon-size
-            value: 20
-          - name: tray horizontal alignment
-            key: /org/gnome/shell/extensions/topicons/tray-pos
-            value: "'right'"
-          - name: tray offset
-            key: /org/gnome/shell/extensions/topicons/tray-order
-            value: 2
+        configure: no
     terminal:
       configure: yes
       config:
