@@ -215,10 +215,9 @@
       config:
         - sdl.fullscreen: 'true'
         - sdl.fulldouble: 'true'
-        - sdl.fullresolution: '1920x1080'
-        - sdl.windowresolution: '1920x1080'
+        - sdl.fullresolution: 'desktop'
+        - sdl.windowresolution: 'original'
         - sdl.output: 'opengl'
-        - sdl.usescancodes: 'false'
     composer:
       install: yes
     typora:
