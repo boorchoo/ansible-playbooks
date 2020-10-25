@@ -23,6 +23,7 @@
       - tilix
       - gnome-extensions-app
       - vice
+      - nautilus-dropbox
     flathub:
       - com.getpostman.Postman
       - com.github.johnfactotum.Foliate
