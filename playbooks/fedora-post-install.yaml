@@ -21,6 +21,7 @@
       - gthumb
       - celluloid
       - tilix
+      - gnome-extensions-app
     flathub:
       - com.getpostman.Postman
       - com.github.johnfactotum.Foliate

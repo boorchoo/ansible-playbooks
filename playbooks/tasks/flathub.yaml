@@ -9,3 +9,6 @@
     state: present
     remote: flathub
   loop: "{{flathub}}"
+- name: Configuring Viber
+  shell: flatpak override --user --own-name='org.kde.*' com.viber.Viber
+  when: "'com.viber.Viber' in flathub"
