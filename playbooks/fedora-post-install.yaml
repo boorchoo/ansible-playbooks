@@ -2,7 +2,7 @@
   vars:
     packages:
       - gstreamer1-plugins-good-extras,gstreamer1-plugins-ugly,gstreamer1-plugins-bad-freeworld,gstreamer1-plugins-bad-free
-      - php,php-mysqlnd,php-gd,php-mbstring,php-json
+      - php,php-mysqlnd,php-gd,php-mbstring,php-json,php-xml,php-pecl-zip
       - mariadb-server
       - nodejs
       - golang
