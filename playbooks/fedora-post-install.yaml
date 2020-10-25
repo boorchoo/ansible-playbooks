@@ -143,3 +143,4 @@
     - include: tasks/virtualbox.yaml
     - include: tasks/aseprite.yaml
     - include: tasks/kick-assembler.yaml
+    - include: tasks/c64-65xe-debugger.yaml

@@ -1,0 +1,10 @@
+- name: Preparing to install C64 65XE Debugger
+  file:
+    path: "{{ansible_env.HOME}}/bin"
+    recurse: yes
+    state: directory
+- name: Installing C64 65XE Debugger
+  unarchive:
+    src: https://sourceforge.net/projects/c64-debugger/files/C64-65XE-Debugger-v0.64.58-linux-x64.tar.gz
+    remote_src: yes
+    dest: "{{ansible_env.HOME}}/bin"
