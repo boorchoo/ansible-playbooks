@@ -1,0 +1,7 @@
+- name: Installing packages with GPG check disabled
+  become: yes
+  dnf:
+    name: "{{item}}"
+    state: present
+    disable_gpg_check: yes
+  loop: "{{packages_nogpgcheck}}"

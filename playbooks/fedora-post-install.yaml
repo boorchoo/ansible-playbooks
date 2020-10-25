@@ -24,6 +24,10 @@
       - gnome-extensions-app
       - vice
       - nautilus-dropbox
+    packages_nogpgcheck:
+      - "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_lsb.major_release}}.noarch.rpm"
+      - "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ansible_lsb.major_release}}.noarch.rpm"
+      - https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-8.0.22-1.fc33.x86_64.rpm
     flathub:
       - com.getpostman.Postman
       - com.github.johnfactotum.Foliate
@@ -125,7 +129,7 @@
       - mariadb
   tasks:
     - include: tasks/update.yaml
-    - include: tasks/rpm-fusion.yaml
+    - include: tasks/packages_nogpgcheck.yaml
     - include: tasks/packages.yaml
     - include: tasks/flathub.yaml
     - include: tasks/google-chrome.yaml
