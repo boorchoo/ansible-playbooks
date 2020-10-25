@@ -52,6 +52,7 @@
     gnome_shell_extensions:
       - dash-to-panel@jderose9.github.com
       - appindicatorsupport@rgcjonas.gmail.com
+      - freon@UshakovVasilii_Github.yahoo.com
     vscode_extensions:
       - formulahendry.auto-close-tag
       - coenraads.bracket-pair-colorizer-2
