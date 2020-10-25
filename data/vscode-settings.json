@@ -16,11 +16,11 @@
   "window.titleBarStyle": "custom",
   "gitlens.views.fileHistory.location": "scm",
   "workbench.colorTheme": "GitHub Dark",
-  "kickassembler.assemblerJar": "/home/milan/bin/KickAssembler/KickAss.jar",
+  "kickassembler.assemblerJar": "{{ansible_env.HOME}}/bin/KickAssembler/KickAss.jar",
   "kickassembler.emulatorRuntime": "/usr/bin/x64",
   "kickassembler.javaRuntime": "/usr/bin/java",
   "kickassembler.outputDirectory": "build",
-  "kickassembler.debuggerRuntime": "/home/milan/bin/C64-65XE-Debugger/c64debugger",
+  "kickassembler.debuggerRuntime": "{{ansible_env.HOME}}/bin/C64-65XE-Debugger/c64debugger",
   "kickassembler.debuggerOptions": "-wait 3000 -autojmp",
   "editor.renameOnType": true
 }
