@@ -32,3 +32,9 @@
     ninja install
     update-mime-database /usr/local/share/mime
     update-desktop-database /usr/local/share/applications
+- name: Installing aseprite icon
+  become: yes
+  file:
+    src: /usr/local/share/aseprite/data/icons/ase256.png
+    dest: /usr/share/pixmaps/aseprite.png
+    state: link
