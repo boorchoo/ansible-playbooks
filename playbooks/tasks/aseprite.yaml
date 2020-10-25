@@ -28,6 +28,7 @@
 - name: Installing Aseprite
   become: yes
   shell: |
+    cd {{ansible_env.HOME}}/src/third_party/aseprite/build
     ninja install
     update-mime-database /usr/local/share/mime
     update-desktop-database /usr/local/share/applications

@@ -1,0 +1,10 @@
+- name: Preparing to install KickAssembler
+  file:
+    path: "{{ansible_env.HOME}}/bin/KickAssembler"
+    recurse: yes
+    state: directory
+- name: Installing KickAssembler
+  unarchive:
+    src: http://theweb.dk/KickAssembler/KickAssembler.zip
+    remote_src: yes
+    dest: "{{ansible_env.HOME}}/bin/KickAssembler"
