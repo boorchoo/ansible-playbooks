@@ -22,6 +22,7 @@
       - celluloid
       - tilix
       - gnome-extensions-app
+      - vice
     flathub:
       - com.getpostman.Postman
       - com.github.johnfactotum.Foliate
