@@ -1,10 +1,20 @@
 - name: Preparing to install C64 65XE Debugger
   file:
-    path: "{{ansible_env.HOME}}/bin"
+    path: "{{item}}"
     recurse: yes
     state: directory
+  loop:
+    - "{{ansible_env.HOME}}/bin"
+    - /tmp/xcb-util
 - name: Installing C64 65XE Debugger
   unarchive:
     src: https://sourceforge.net/projects/c64-debugger/files/C64-65XE-Debugger-v0.64.58-linux-x64.tar.gz
     remote_src: yes
     dest: "{{ansible_env.HOME}}/bin"
+- name: Installing libxcb-util.so.0
+  become: yes
+  shell: |
+    cd /tmp/xcb-util
+    wget ftp://ftp.pbone.net/mirror/archive.fedoraproject.org/fedora/linux/releases/18/Fedora/x86_64/os/Packages/x/xcb-util-0.3.8-3.fc18.x86_64.rpm
+    rpm2cpio xcb-util-0.3.8-3.fc18.x86_64.rpm | cpio -idmv
+    cp ./usr/lib64/libxcb-util.so.0.0.0 /usr/lib64/libxcb-util.so.0
