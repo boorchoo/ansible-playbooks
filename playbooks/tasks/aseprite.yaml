@@ -1,0 +1,33 @@
+- name: Preparing to build Aseprite
+  become: yes
+  dnf:
+    name: gcc-c++,cmake,ninja-build,libX11-devel,libXcursor-devel,libXi-devel,mesa-libGL-devel,fontconfig-devel
+    state: latest
+- name: Preparing to download Skia
+  file:
+    path: "{{ansible_env.HOME}}/src/third_party/skia-linux-release"
+    recurse: yes
+    state: directory
+- name: Downloading Skia
+  unarchive:
+    src: "https://github.com/aseprite/skia/releases/download/m81-b607b32047/Skia-Linux-Release-x64.zip"
+    remote_src: yes
+    dest: "{{ansible_env.HOME}}/src/third_party/skia-linux-release"
+- name: Building Aseprite
+  shell: |
+    cd {{ansible_env.HOME}}/src/third_party
+    rm -rf aseprite
+    git clone --recursive https://github.com/aseprite/aseprite.git
+    cd aseprite
+    git pull
+    git submodule update --init --recursive
+    mkdir build
+    cd build/
+    cmake -DCMAKE_BUILD_TYPE=Release -DLAF_BACKEND=skia -DSKIA_DIR=../../skia-linux-release -DWITH_WEBP_SUPPORT=OFF -DWITH_DESKTOP_INTEGRATION=ON -DSKIA_LIBRARY_DIR=../../skia-linux-release/out/Release-x64 -G Ninja ..
+    ninja aseprite
+- name: Installing Aseprite
+  become: yes
+  shell: |
+    ninja install
+    update-mime-database /usr/local/share/mime
+    update-desktop-database /usr/local/share/applications

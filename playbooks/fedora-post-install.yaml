@@ -138,3 +138,6 @@
     - include: tasks/typora.yaml
     - include: tasks/services.yaml
     - include: tasks/powerline.yaml
+    - include: tasks/microsoft-edge.yaml
+    - include: tasks/virtualbox.yaml
+    - include: tasks/aseprite.yaml
