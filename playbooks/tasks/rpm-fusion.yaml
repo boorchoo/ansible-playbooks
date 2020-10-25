@@ -1,0 +1,12 @@
+- name: Installing RPM Fusion free
+  become: yes
+  dnf:
+    name: 'https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_lsb.major_release}}.noarch.rpm'
+    state: present
+    disable_gpg_check: yes
+- name: Installing RPM Fusion nonfree
+  become: yes
+  dnf:
+    name: 'https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ansible_lsb.major_release}}.noarch.rpm'
+    state: present
+    disable_gpg_check: yes

@@ -1,9 +1,9 @@
-- name: Import Visual Studio Code GPG key
+- name: Importing Visual Studio Code GPG key
   become: yes
   rpm_key:
     key: https://packages.microsoft.com/keys/microsoft.asc
     state: present
-- name: Add Visual Studio Code repository
+- name: Adding Visual Studio Code repository
   become: yes
   yum_repository:
     name: code
@@ -12,22 +12,21 @@
     enabled: yes
     gpgcheck: yes
     gpgkey: https://packages.microsoft.com/keys/microsoft.asc
-- name: Install Visual Studio Code
+- name: Installing Visual Studio Code
   become: yes
   dnf:
     name: code
     state: latest
-- name: Install Visual Studio Code extensions
+- name: Installing Visual Studio Code extensions
   command: code --install-extension {{item}}
-  loop: "{{vscode.install_extensions}}"
-- name: Prepare to configure Visual Studio Code
+  loop: "{{vscode_extensions}}"
+- name: Preparing to configure Visual Studio Code
   file:
     path: "{{ansible_env.HOME}}/.config/Code/User"
     recurse: yes
     state: directory
-  when: vscode.configure
-- name: Configure Visual Studio Code
+- name: Configuring Visual Studio Code
   copy:
     src: "{{playbook_dir}}/../data/vscode-settings.json"
     dest: "{{ansible_env.HOME}}/.config/Code/User/settings.json"
-  when: vscode.configure
+

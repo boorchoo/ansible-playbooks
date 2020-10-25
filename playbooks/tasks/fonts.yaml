@@ -1,17 +1,17 @@
-- name: Prepare to install fonts
+- name: Preparing to install fonts
   file:
     path: "{{ansible_env.HOME}}/.local/share/fonts"
     recurse: yes
     state: directory
-- name: Install Microsoft fonts
+- name: Installing Microsoft fonts
   become: yes
   dnf:
     name:
       - cabextract
       - 'https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm'
     state: latest
-  when: microsoft_fonts.install
-- name: Install Fira Code fonts
+    disable_gpg_check: yes
+- name: Installing Fira Code fonts
   get_url:
     url: https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-{{item}}.ttf?raw=true
     dest: "{{ansible_env.HOME}}/.local/share/fonts"
@@ -21,6 +21,6 @@
     - Medium
     - Regular
     - Retina
-  when: fira_code_fonts.install or (vscode.install and vscode.configure)
-- name: Update font cache
+- name: Updating font cache
   command: fc-cache -f
+

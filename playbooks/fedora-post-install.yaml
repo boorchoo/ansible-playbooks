@@ -1,420 +1,139 @@
 - hosts: localhost
   vars:
-    rpm_fusion:
-      install: yes
-    gstreamer_plugins:
-      install: yes
-    google_chrome:
-      install: yes
-      default: yes
-    vscode:
-      install: yes
-      install_extensions:
-        - editorconfig.editorconfig
-        - eamodio.gitlens
-        - equinusocio.vsc-material-theme
-        - equinusocio.vsc-material-theme-icons
-        - bmewburn.vscode-intelephense-client
-        - runem.lit-plugin
-        - oderwat.indent-rainbow
-        - 2gua.rainbow-brackets
-        - ms-vscode.go
-      configure: yes
-    skype:
-      install: yes
-    yarn:
-      install: yes
-    flathub_flatpaks:
-      - name: Slack
-        ref: com.slack.Slack
-        install: yes
-      - name: Lollypop
-        ref: org.gnome.Lollypop
-        install: yes
-      - name: GIMP
-        ref: org.gimp.GIMP
-        install: yes
-      - name: MyPaint
-        ref: org.mypaint.MyPaint
-        install: yes
-      - name: Viber
-        ref: com.viber.Viber
-        install: yes
-      - name: Postman
-        ref: com.getpostman.Postman
-        install: yes
-      - name: Spotify
-        ref: com.spotify.Client
-        install: yes
-      - name: Gradio
-        ref: de.haeckerfelix.gradio
-        install: no
-      - name: PulseEffects
-        ref: com.github.wwmm.pulseeffects
-        install: no
-      - name: FontForge
-        ref: org.fontforge.FontForge
-        install: no
-      - name: FontFinder
-        ref: io.github.mmstick.FontFinder
-        install: no
-    microsoft_fonts:
-      install: yes
-    fira_code_fonts:
-      install: yes
+    packages:
+      - gstreamer1-plugins-good-extras,gstreamer1-plugins-ugly,gstreamer1-plugins-bad-freeworld,gstreamer1-plugins-bad-free
+      - php,php-mysqlnd,php-gd,php-mbstring,php-json
+      - mariadb-server
+      - nodejs
+      - golang
+      - inkscape
+      - mediawriter
+      - lm_sensors
+      - unrar
+      - mkvtoolnix
+      - gnome-subtitles
+      - gnome-tweaks
+      - mc
+      - easytag
+      - soundconverter
+      - vlc
+      - transmission
+      - gthumb
+      - celluloid
+      - tilix
+    flathub:
+      - com.getpostman.Postman
+      - com.github.johnfactotum.Foliate
+      - com.rafaelmardojai.Blanket
+      - com.rawtherapee.RawTherapee
+      - com.slack.Slack
+      - com.spotify.Client
+      - com.viber.Viber
+      - de.haeckerfelix.Shortwave
+      - io.lmms.LMMS
+      - no.mifi.losslesscut
+      - org.audacityteam.Audacity
+      - org.blender.Blender
+      - org.darktable.Darktable
+      - org.fontforge.FontForge
+      - org.gimp.GIMP
+      - org.gnome.FontManager
+      - org.gnome.Lollypop
+      - org.gnome.Podcasts
+      - org.gnome.SoundRecorder
+      - org.kde.kdenlive
+      - org.kde.krita
+      - org.mypaint.MyPaint
+      - org.stellarium.Stellarium
+      - uk.co.mrbenshef.Boop-GTK
     gnome_shell_extensions:
-      - name: Dash to Panel
-        uuid: dash-to-panel@jderose9.github.com
-        install: yes
-        configure: no
-      - name: Dash to Dock
-        uuid: dash-to-dock@micxgx.gmail.com
-        install: no
-        configure: yes
-        config:
-          - name: position on screen
-            key: /org/gnome/shell/extensions/dash-to-dock/dock-position
-            value: "'BOTTOM'"
-          - name: panel mode
-            key: /org/gnome/shell/extensions/dash-to-dock/extend-height
-            value: boolean true
-          - name: fixed icon size
-            key: /org/gnome/shell/extensions/dash-to-dock/icon-size-fixed
-            value: boolean true
-          - name: move applications button at the beginning of the dock
-            key: /org/gnome/shell/extensions/dash-to-dock/show-apps-at-top
-            value: boolean true
-          - name: use built-in theme
-            key: /org/gnome/shell/extensions/dash-to-dock/apply-custom-theme
-            value: boolean true
-          - name: click action
-            key: /org/gnome/shell/extensions/dash-to-dock/click-action
-            value: "'minimize'"
-          - name: scroll action
-            key: /org/gnome/shell/extensions/dash-to-dock/scroll-action
-            value: "'cycle-windows'"
-          - name: animate show applications
-            key: /org/gnome/shell/extensions/dash-to-dock/animate-show-apps
-            value: boolean false
-      - name: KStatusNotifierItem/AppIndicator Support
-        uuid: appindicatorsupport@rgcjonas.gmail.com
-        install: yes
-        configure: no
-    terminal:
-      configure: yes
-      config:
-        - name: show menubar by default in new terminals
-          key: /org/gnome/terminal/legacy/default-show-menubar
-          value: boolean false
-        - name: number of columns
-          key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/default-size-columns
-          value: 160
-        - name: number of rows
-          key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/default-size-rows
-          value: 48
-        - name: transparent background
-          key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-transparent-background
-          value: boolean true
-        - name: transparency
-          key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/background-transparency-percent
-          value: 10
-        - name: show scrollbar
-          key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/scrollbar-policy
-          value: "'never'"
-    tilix:
-      install: yes
-      configure: yes
-      config:
-        - name: theme variant
-          key: /com/gexperts/Tilix/theme-variant
-          value: "'dark'"
-        - name: show the terminal title even if it's only terminal
-          key: /com/gexperts/Tilix/terminal-title-show-when-single
-          value: boolean false
-        - name: number of columns
-          key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/default-size-columns
-          value: 160
-        - name: number of rows
-          key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/default-size-rows
-          value: 48
-        - name: transparency
-          key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/background-transparency-percent
-          value: 10
-        - name: show scrollbar
-          key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/show-scrollbar
-          value: boolean false
-    gthumb:
-      install: yes
-      configure: yes
-      config:
-        - name: browser thumbnail size
-          key: /org/gnome/gthumb/browser/thumbnail-size
-          value: 200
-    powerline:
-      install: yes
-      configure: yes
-    gnome:
-      configure: yes
-      config:
-        - name: night light
-          key: /org/gnome/settings-daemon/plugins/color/night-light-enabled
-          value: boolean true
-        - name: night light temperature
-          key: /org/gnome/settings-daemon/plugins/color/night-light-temperature
-          value: uint32 5250
-        - name: input sources
-          key: /org/gnome/desktop/input-sources/sources
-          value: "[('xkb', 'us'), ('xkb', 'rs+latin'), ('xkb', 'rs'), ('ibus', 'typing-booster')]"
-        - name: formats
-          key: /system/locale/region
-          value: "'en_GB.UTF-8'"
-    videos:
-      default: yes
-      configure: yes
-      config:
-        - name: autoload subtiles
-          key: /org/gnome/Totem/autoload-subtitles
-          value: boolean true
-        - name: subtitle encoding
-          key: /org/gnome/Totem/subtitle-encoding
-          value: "'WINDOWS-1250'"
-    celluloid:
-      install: yes
-      default: yes
-      configure: yes
-      config:
-        - name: MVP options
-          key: /io/github/celluloid-player/celluloid/mpv-options
-          value: "'--sub-auto=fuzzy --sub-codepage=utf8:cp1250 --sub-text-color=#ffff99 --sub-scale=1.5 --ass-style-override=strip'"
-    php:
-      install: yes
-    httpd:
-      enable: yes
-    mariadb:
-      install: yes
-      enable: yes
-    golang:
-      install: yes
-    nodejs:
-      install: yes
-    bower:
-      install: no
-    polymer:
-      install: no
-    typescript:
-      install: yes
-    processing:
-      install: yes
-    mailspring:
-      install: no
-    master_pdf_editor:
-      install: no
-    dosbox:
-      install: yes
-      configure: yes
-      config:
-        - sdl.fullscreen: 'true'
-        - sdl.fulldouble: 'true'
-        - sdl.fullresolution: 'desktop'
-        - sdl.windowresolution: 'original'
-        - sdl.output: 'opengl'
-    composer:
-      install: yes
-    typora:
-      install: yes
-    inkscape:
-      install: yes
-    gnome_subtitles:
-      install: yes
-    easytag:
-      install: yes
-    transmission:
-      install: yes
-    audacity:
-      install: yes
-    soundconverter:
-      install: yes
-    mc:
-      install: yes
-    tweaks:
-      install: yes
-    vlc:
-      install: yes
-    utils:
-      install: yes
+      - dash-to-panel@jderose9.github.com
+      - appindicatorsupport@rgcjonas.gmail.com
+    vscode_extensions:
+      - formulahendry.auto-close-tag
+      - coenraads.bracket-pair-colorizer-2
+      - equinusocio.vsc-material-theme
+      - editorconfig.editorconfig
+      - github.github-vscode-theme
+      - eamodio.gitlens
+      - golang.go
+      - paulhocker.kick-assembler-vscode-ext
+      - runem.lit-plugin
+      - dawhite.mustache
+      - felixfbecker.php-debug
+      - bmewburn.vscode-intelephense-client
+      - ms-python.python
+    dconf:
+      # GNOME
+      - key: /org/gnome/settings-daemon/plugins/color/night-light-enabled
+        value: boolean true
+      - key: /org/gnome/settings-daemon/plugins/color/night-light-temperature
+        value: uint32 5250
+      - key: /org/gnome/desktop/input-sources/sources
+        value: "[('xkb', 'us'), ('xkb', 'rs+latin'), ('xkb', 'rs')]"
+      - key: /system/locale/region
+        value: "'en_GB.UTF-8'"
+      # Terminal
+      - key: /org/gnome/terminal/legacy/default-show-menubar
+        value: boolean false
+      - key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/default-size-columns
+        value: 160
+      - key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/default-size-rows
+        value: 48
+      - key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-transparent-background
+        value: boolean true
+      - key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/background-transparency-percent
+        value: 10
+      - key: /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/scrollbar-policy
+        value: "'never'"
+      # Tilix
+      - key: /com/gexperts/Tilix/theme-variant
+        value: "'dark'"
+      - key: /com/gexperts/Tilix/terminal-title-show-when-single
+        value: boolean false
+      - key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/default-size-columns
+        value: 160
+      - key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/default-size-rows
+        value: 48
+      - key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/background-transparency-percent
+        value: 10
+      - key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/show-scrollbar
+        value: boolean false
+      # gThumb
+      - key: /org/gnome/gthumb/browser/thumbnail-size
+        value: 200
+      # Celluloid
+      - key: /io/github/celluloid-player/celluloid/mpv-options
+        value: "'--sub-auto=fuzzy --sub-codepage=utf8:cp1250 --sub-text-color=#ffff99 --sub-scale=1.5 --ass-style-override=strip'"
+      # Videos
+      - key: /org/gnome/Totem/autoload-subtitles
+        value: boolean true
+      - key: /org/gnome/Totem/subtitle-encoding
+        value: "'WINDOWS-1250'"
+    dosbox_options:
+      - sdl.fullscreen: 'true'
+      - sdl.fulldouble: 'true'
+      - sdl.fullresolution: 'desktop'
+      - sdl.windowresolution: 'original'
+      - sdl.output: 'opengl'
+    services:
+      - httpd
+      - mariadb
   tasks:
-    - name: Update all packages
-      become: yes
-      dnf:
-        name: '*'
-        state: latest
-    - include: includes/rpm-fusion.yaml
-      when: rpm_fusion.install or gstreamer_plugins.install or celluloid.install
-    - name: Install GStreamer plugins
-      become: yes
-      dnf:
-        name: gstreamer1-plugins-good-extras,gstreamer1-plugins-ugly,gstreamer1-plugins-bad-freeworld,gstreamer1-plugins-bad-nonfree
-        state: latest
-      when: gstreamer_plugins.install
-    - include: includes/google-chrome.yaml
-      when: google_chrome.install
-    - include: includes/vscode.yaml
-      when: vscode.install
-    - include: includes/skype.yaml
-      when: skype.install
-    - include: includes/yarn.yaml
-      when: yarn.install
-    - name: Add Flathub flatpak repository
-      become: yes
-      command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-      when: flathub_flatpaks|selectattr('install')|list|count
-    - include: "includes/flathub-flatpak.yaml flatpak={{item}}"
-      loop: "{{flathub_flatpaks|selectattr('install')|list}}"
-    - include: includes/fonts.yaml
-      when: microsoft_fonts.install or fira_code_fonts.install or (vscode.install and vscode.configure)
-    - name: Prepare to install GNOME Shell extensions
-      shell: gnome-shell --version | cut -d" " -f3 | cut -d. -f1,2
-      register: gnome_shell_version
-      when: gnome_shell_extensions|selectattr('install')|list|count
-    - include: "includes/gnome-shell-extension.yaml shell_version={{gnome_shell_version.stdout}}"
-      loop: "{{gnome_shell_extensions|selectattr('install')|list}}"
-      loop_control:
-        loop_var: extension
-    - include: includes/dconf.yaml name="{{'Enable' if item.value == 'boolean true' else ('Disable' if item.value == 'boolean false' else 'Set')}} {{item.name}} for Terminal" key={{item.key}} value={{item.value}}
-      loop: "{{terminal.config}}"
-      when: terminal.configure
-    - include: includes/tilix.yaml
-      when: tilix.install
-    - include: includes/gthumb.yaml
-      when: gthumb.install
-    - include: includes/powerline.yaml
-      when: powerline.install
-    - include: includes/dconf.yaml name="{{'Enable' if item.value == 'boolean true' else ('Disable' if item.value == 'boolean false' else 'Set')}} {{item.name}} for GNOME" key={{item.key}} value={{item.value}}
-      loop: "{{gnome.config}}"
-      when: gnome.configure
-    - include: includes/dconf.yaml name="{{'Enable' if item.value == 'boolean true' else ('Disable' if item.value == 'boolean false' else 'Set')}} {{item.name}} for Videos" key={{item.key}} value={{item.value}}
-      loop: "{{videos.config}}"
-      when: videos.configure
-    - name: Set Videos as default music application
-      command: xdg-mime default org.gnome.Totem.desktop audio/3gpp audio/3gpp2 audio/aac audio/ac3 audio/AMR audio/AMR-WB audio/basic audio/dv audio/eac3 audio/flac audio/m4a audio/midi audio/mp1 audio/mp2 audio/mp3 audio/mp4 audio/mpeg audio/mpegurl audio/mpg audio/ogg audio/opus audio/prs.sid audio/scpls audio/vnd.rn-realaudio audio/wav audio/webm audio/x-aac audio/x-aiff audio/x-ape audio/x-flac audio/x-gsm audio/x-it audio/x-m4a audio/x-m4b audio/x-matroska audio/x-mod audio/x-mp1 audio/x-mp2 audio/x-mp3 audio/x-mpeg audio/x-mpegurl audio/x-mpg audio/x-ms-asf audio/x-ms-asx audio/x-ms-wax audio/x-ms-wma audio/x-musepack audio/x-opus+ogg audio/x-pn-aiff audio/x-pn-au audio/x-pn-realaudio audio/x-pn-realaudio-plugin audio/x-pn-wav audio/x-pn-windows-acm audio/x-realaudio audio/x-real-audio audio/x-s3m audio/x-sbc audio/x-scpls audio/x-shorten audio/x-speex audio/x-stm audio/x-tta audio/x-vorbis audio/x-vorbis+ogg audio/x-wav audio/x-wavpack audio/x-xm
-      when: videos.default
-    - include: includes/celluloid.yaml
-      when: celluloid.install
-    - name: Install PHP
-      become: yes
-      dnf:
-        name: php,php-mysqlnd,php-gd,php-mbstring,php-json
-        state: latest
-      when: php.install
-    - name: Enable and restart Apache HTTP Server
-      become: yes
-      service:
-        name: httpd
-        enabled: yes
-        state: restarted
-      when: httpd.enable
-    - include: includes/mariadb.yaml
-      when: mariadb.install
-    - name: Install Go
-      become: yes
-      dnf:
-        name: golang
-        state: latest
-      when: golang.install
-    - name: Install Node.js
-      become: yes
-      dnf:
-        name: nodejs
-        state: latest
-      when: nodejs.install or bower.install or polymer.install or typescript.install
-    - name: Install Bower
-      become: yes
-      npm:
-        name: bower
-        global: yes
-      when: bower.install
-    - name: Install Polymer CLI
-      become: yes
-      command: npm install -g --unsafe-perm polymer-cli
-      when: polymer.install
-    - name: Install TypeScript
-      become: yes
-      npm:
-        name: typescript
-        global: yes
-      when: typescript.install
-    - include: includes/processing.yaml version=3.5.3
-      when: processing.install
-    - include: includes/mailspring.yaml
-      when: mailspring.install
-    - name: Install Master PDF Editor
-      become: yes
-      dnf:
-        name: https://code-industry.net/public/master-pdf-editor-5.0.36_qt5.x86_64.rpm
-      when: master_pdf_editor.install
-    - include: includes/dosbox.yaml
-      when: dosbox.install
-    - include: includes/composer.yaml
-      when: composer.install
-    - include: includes/typora.yaml
-      when: typora.install
-    - name: Install Inkscape
-      become: yes
-      dnf:
-        name: inkscape
-        state: latest
-      when: inkscape.install
-    - name: Install Gnome Subtitles
-      become: yes
-      dnf:
-        name: gnome-subtitles
-        state: latest
-      when: gnome_subtitles.install
-    - name: Install EasyTAG
-      become: yes
-      dnf:
-        name: easytag
-        state: latest
-      when: easytag.install
-    - name: Install Transmission
-      become: yes
-      dnf:
-        name: transmission
-        state: latest
-      when: transmission.install
-    - name: Install Audacity
-      become: yes
-      dnf:
-        name: audacity-freeworld
-        state: latest
-      when: audacity.install
-    - name: Install Sound Converter
-      become: yes
-      dnf:
-        name: soundconverter
-        state: latest
-      when: soundconverter.install
-    - name: Install Midnight Commander
-      become: yes
-      dnf:
-        name: mc
-        state: latest
-      when: mc.install
-    - name: Install Tweaks
-      become: yes
-      dnf:
-        name: gnome-tweaks
-        state: latest
-      when: tweaks.install
-    - name: Install VLC media player
-      become: yes
-      dnf:
-        name: vlc
-        state: latest
-      when: vlc.install
-    - name: Install utilities
-      become: yes
-      dnf:
-        name: mediawriter,lm_sensors,unrar,mkvtoolnix
-        state: latest
-      when: utils.install
+    - include: tasks/update.yaml
+    - include: tasks/rpm-fusion.yaml
+    - include: tasks/packages.yaml
+    - include: tasks/flathub.yaml
+    - include: tasks/google-chrome.yaml
+    - include: tasks/fonts.yaml
+    - include: tasks/skype.yaml
+    - include: tasks/yarn.yaml
+    - include: tasks/gnome-shell-extensions.yaml
+    - include: tasks/vscode.yaml
+    - include: tasks/composer.yaml
+    - include: tasks/dconf.yaml
+    - include: tasks/dosbox.yaml
+    - include: tasks/processing.yaml version=3.5.4
+    - include: tasks/typora.yaml
+    - include: tasks/services.yaml
+    - include: tasks/powerline.yaml

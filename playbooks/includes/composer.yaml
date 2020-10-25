@@ -1,6 +1,0 @@
-- name: Prepare to install Composer
-  get_url:
-    url: https://raw.githubusercontent.com/composer/getcomposer.org/d3a6ed2ed96ff423fb1991f22e4bcabd3db662f8/web/installer
-    dest: /tmp/composer-setup.php
-- name: Install Composer
-  command: php /tmp/composer-setup.php --quiet --install-dir={{ansible_env.HOME}}/bin --filename=composer

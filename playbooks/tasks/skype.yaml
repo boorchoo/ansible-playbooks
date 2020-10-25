@@ -1,9 +1,9 @@
-- name: Import Skype GPG key
+- name: Importing Skype GPG key
   become: yes
   rpm_key:
     key: https://repo.skype.com/data/SKYPE-GPG-KEY
     state: present
-- name: Add Skype repository
+- name: Adding Skype repository
   become: yes
   yum_repository:
     name: skype-stable
@@ -12,7 +12,7 @@
     enabled: yes
     gpgcheck: yes
     gpgkey: https://repo.skype.com/data/SKYPE-GPG-KEY
-- name: Install Skype
+- name: Installing Skype
   become: yes
   dnf:
     name: skypeforlinux

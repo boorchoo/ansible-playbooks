@@ -1,36 +1,34 @@
-- name: Prepare to configure SELinux for DOSBox
+- name: Preparing to configure SELinux for DOSBox
   command: getenforce
   register: sestatus
-- name: Configure SELinux for DOSBox
+- name: Configuring SELinux for DOSBox
   become: yes
   seboolean:
     name: selinuxuser_execheap
     state: yes
     persistent: yes
   when: '"Enforcing" in sestatus.stdout'
-- name: Install DOSBox
+- name: Installing DOSBox
   become: yes
   dnf:
     name: dosbox
     state: latest
-- name: Prepare to configure DOSBox
+- name: Preparing to configure DOSBox
   command: dosbox -printconf
   register: dosbox_conf
-  when: dosbox.configure
-- name: Configure DOSBox
+- name: Configuring DOSBox
   ini_file:
     path: "{{dosbox_conf.stdout}}"
     section: "{{item.key.split('.')[0]}}"
     option: "{{item.key.split('.')[1]}}"
     value: "{{item.value}}"
     no_extra_spaces: yes
-  with_dict: "{{dosbox.config}}"
-  when: dosbox.configure
-- name: Prepare to configure DOSBox autoexec
+  with_dict: "{{dosbox_options}}"
+- name: Preparing to configure DOSBox autoexec
   file:
     path: "{{ansible_env.HOME}}/dosbox"
     state: directory
-- name: Configure DOSBox autoexec
+- name: Configuring DOSBox autoexec
   blockinfile:
     path: "{{dosbox_conf.stdout}}"
     marker: "# {mark} AUTOEXEC BLOCK"

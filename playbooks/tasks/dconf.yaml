@@ -1,0 +1,5 @@
+- name: Configuring GNOME
+  dconf:
+    key: "{{item.key}}"
+    value: "{{item.value|string}}"
+  loop: "{{dconf}}"

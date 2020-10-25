@@ -1,4 +1,4 @@
-- name: Prepare to install Processing
+- name: Preparing to install Processing
   file:
     path: "{{ansible_env.HOME}}/{{item}}"
     recurse: yes
@@ -6,12 +6,12 @@
   loop:
     - bin
     - .local/share/applications
-- name: Install Processing {{version}}
+- name: Installing Processing {{version}}
   unarchive:
     src: "http://download.processing.org/processing-{{version}}-linux64.tgz"
     remote_src: yes
     dest: "{{ansible_env.HOME}}/bin"
-- name: Add Processing to applications
+- name: Creating Processing desktop entry
   copy:
     dest: "{{ansible_env.HOME}}/.local/share/applications/processing.desktop"
     content: |

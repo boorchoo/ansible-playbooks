@@ -1,0 +1,9 @@
+- name: Preparing to install GNOME Shell extensions
+  shell: gnome-shell --version | cut -d" " -f3 | cut -d. -f1,2
+  register: gnome_shell_version
+- name: Installing GNOME Shell extensions
+  shell: "gnome-extensions install https://extensions.gnome.org{{lookup('url','https://extensions.gnome.org/extension-info/?uuid={{item}}&shell_version={{gnome_shell_version.stdout}}')|from_json|json_query('download_url')}}"
+  loop: "{{gnome_shell_extensions}}"
+#- name: Enabling GNOME Shell extensions
+#  shell: "gnome-extensions enable {{item}}"
+#  loop: "{{gnome_shell_extensions}}"

@@ -1,0 +1,6 @@
+- name: Installing packages
+  become: yes
+  dnf:
+    name: "{{item}}"
+    state: latest
+  loop: "{{packages}}"
