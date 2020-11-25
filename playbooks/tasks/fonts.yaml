@@ -21,6 +21,14 @@
     - Medium
     - Regular
     - Retina
+- name: Downloading Cascadia Code fonts
+  get_url:
+    url: https://github.com/microsoft/cascadia-code/releases/download/v2009.22/CascadiaCode-2009.22.zip
+    dest: /tmp/CascadiaCode-2009.22.zip
+- name: Installing Cascadia Code fonts
+  shell: unzip -jo /tmp/CascadiaCode-2009.22.zip ttf/*.ttf -d ~/.local/share/fonts
+  args:
+    warn: false
 - name: Updating font cache
   command: fc-cache -f
 
