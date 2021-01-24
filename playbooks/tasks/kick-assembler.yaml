@@ -3,6 +3,11 @@
     path: "{{ansible_env.HOME}}/bin/KickAssembler"
     recurse: yes
     state: directory
+- name: Installing Java 11 OpenJDK
+  become: yes
+  dnf:
+    name: java-11-openjdk
+    state: latest
 - name: Installing KickAssembler
   unarchive:
     src: http://theweb.dk/KickAssembler/KickAssembler.zip
