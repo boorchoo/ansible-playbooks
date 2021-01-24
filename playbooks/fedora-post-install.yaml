@@ -52,7 +52,7 @@
       - org.kde.krita
       - org.mypaint.MyPaint
       - org.stellarium.Stellarium
-      - uk.co.mrbenshef.Boop-GTK
+      - fyi.zoey.Boop-GTK
     gnome_shell_extensions:
       - dash-to-panel@jderose9.github.com
       - appindicatorsupport@rgcjonas.gmail.com
