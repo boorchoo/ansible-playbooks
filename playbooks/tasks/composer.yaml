@@ -5,7 +5,7 @@
     state: directory
 - name: Downloading Composer
   get_url:
-    url: https://raw.githubusercontent.com/composer/getcomposer.org/bab7126c8f24c897a76f27c4bb3c8d6881dc7926/web/installer
+    url: https://raw.githubusercontent.com/composer/getcomposer.org/fe1f339fb41eb09a49bbdbda83bb8043d02e24fd/web/installer
     dest: /tmp/composer-setup.php
 - name: Installing Composer
   command: php /tmp/composer-setup.php --quiet --install-dir={{ansible_env.HOME}}/bin --filename=composer

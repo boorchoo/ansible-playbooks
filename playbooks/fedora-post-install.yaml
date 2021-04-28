@@ -53,20 +53,24 @@
       - org.mypaint.MyPaint
       - org.stellarium.Stellarium
       - fyi.zoey.Boop-GTK
+      - io.typora.Typora
+      - org.processing.processingide
+      - com.skype.Client
     gnome_shell_extensions:
-      - dash-to-panel@jderose9.github.com
+      #- dash-to-panel@jderose9.github.com
       - appindicatorsupport@rgcjonas.gmail.com
-      - freon@UshakovVasilii_Github.yahoo.com
+      #- freon@UshakovVasilii_Github.yahoo.com
     vscode_extensions:
+      - mrmlnc.vscode-apache
       - formulahendry.auto-close-tag
       - coenraads.bracket-pair-colorizer-2
-      - equinusocio.vsc-material-theme
       - editorconfig.editorconfig
       - github.github-vscode-theme
       - eamodio.gitlens
       - golang.go
       - paulhocker.kick-assembler-vscode-ext
       - runem.lit-plugin
+      - pkief.material-icon-theme
       - dawhite.mustache
       - felixfbecker.php-debug
       - bmewburn.vscode-intelephense-client
@@ -134,19 +138,16 @@
     - include: tasks/flathub.yaml
     - include: tasks/google-chrome.yaml
     - include: tasks/fonts.yaml
-    - include: tasks/skype.yaml
     - include: tasks/yarn.yaml
     - include: tasks/gnome-shell-extensions.yaml
     - include: tasks/vscode.yaml
     - include: tasks/composer.yaml
     - include: tasks/dconf.yaml
     - include: tasks/dosbox.yaml
-    - include: tasks/processing.yaml version=3.5.4
-    - include: tasks/typora.yaml
     - include: tasks/services.yaml
     - include: tasks/powerline.yaml
     - include: tasks/microsoft-edge.yaml
     - include: tasks/virtualbox.yaml
     - include: tasks/aseprite.yaml
     - include: tasks/kick-assembler.yaml
-    - include: tasks/c64-65xe-debugger.yaml
+    - include: tasks/c64-65xe-nes-debugger.yaml

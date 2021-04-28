@@ -1,4 +1,4 @@
-- name: Preparing to install C64 65XE Debugger
+- name: Preparing to install C64 65XE NES Debugger
   file:
     path: "{{item}}"
     recurse: yes
@@ -6,9 +6,9 @@
   loop:
     - "{{ansible_env.HOME}}/bin"
     - /tmp/xcb-util
-- name: Installing C64 65XE Debugger
+- name: Installing C64 65XE NES Debugger
   unarchive:
-    src: https://sourceforge.net/projects/c64-debugger/files/C64-65XE-Debugger-v0.64.58-linux-x64.tar.gz
+    src: https://sourceforge.net/projects/c64-debugger/files/C64-65XE-NES-Debugger-v0.64.58.4-linux-x64.tar.gz
     remote_src: yes
     dest: "{{ansible_env.HOME}}/bin"
 - name: Installing libxcb-util.so.0

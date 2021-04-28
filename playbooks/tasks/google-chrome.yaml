@@ -1,20 +1,13 @@
-- name: Importing Google Chrome GPG key
+- name: Enabling Google Chrome repository
   become: yes
-  rpm_key:
-    key: https://dl.google.com/linux/linux_signing_key.pub
-    state: present
-- name: Adding Google Chrome repository
-  become: yes
-  yum_repository:
-    name: google-chrome
-    description: google-chrome
-    baseurl: http://dl.google.com/linux/chrome/rpm/stable/x86_64
-    enabled: yes
-    gpgcheck: yes
-    gpgkey: https://dl.google.com/linux/linux_signing_key.pub
+  ini_file:
+    path: /etc/yum.repos.d/google-chrome.repo
+    section: google-chrome
+    option: enabled
+    value: "1"
+    no_extra_spaces: yes
 - name: Installing Google Chrome
   become: yes
   dnf:
     name: google-chrome-stable
     state: latest
-
