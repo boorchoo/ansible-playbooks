@@ -58,9 +58,9 @@
       - com.skype.Client
       - im.riot.Riot
     gnome_shell_extensions:
-      #- dash-to-panel@jderose9.github.com
+      - dash-to-panel@jderose9.github.com
       - appindicatorsupport@rgcjonas.gmail.com
-      #- freon@UshakovVasilii_Github.yahoo.com
+      - freon@UshakovVasilii_Github.yahoo.com
     vscode_extensions:
       - mrmlnc.vscode-apache
       - formulahendry.auto-close-tag
