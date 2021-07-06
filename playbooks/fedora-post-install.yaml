@@ -24,6 +24,7 @@
       - gnome-extensions-app
       - vice
       - nautilus-dropbox
+      - audacity-freeworld
     packages_nogpgcheck:
       - "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_lsb.major_release}}.noarch.rpm"
       - "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ansible_lsb.major_release}}.noarch.rpm"
@@ -39,7 +40,6 @@
       - de.haeckerfelix.Shortwave
       - io.lmms.LMMS
       - no.mifi.losslesscut
-      - org.audacityteam.Audacity
       - org.blender.Blender
       - org.darktable.Darktable
       - org.fontforge.FontForge
