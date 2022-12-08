@@ -1,0 +1,8 @@
+- name: Installing Microsoft fonts
+  become: yes
+  dnf:
+    name:
+      - cabextract
+      - 'https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm'
+    state: latest
+    disable_gpg_check: yes

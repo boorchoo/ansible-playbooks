@@ -1,81 +1,92 @@
 - hosts: localhost
   vars:
     packages:
-      - gstreamer1-plugins-good-extras,gstreamer1-plugins-ugly,gstreamer1-plugins-bad-freeworld,gstreamer1-plugins-bad-free
-      - php,php-mysqlnd,php-gd,php-mbstring,php-json,php-xml,php-pecl-zip,php-soap
-      - mariadb-server
-      - nodejs
-      - golang
-      - inkscape
-      - mediawriter
-      - lm_sensors
-      - unrar
-      - mkvtoolnix
-      - gnome-subtitles
-      - gnome-tweaks
-      - mc
-      - easytag
-      - soundconverter
-      - vlc
-      - transmission
-      - gthumb
-      - celluloid
-      - tilix
-      - gnome-extensions-app
-      - vice
-      - nautilus-dropbox
-      - audacity-freeworld
+      - akmod-nvidia,xorg-x11-drv-nvidia-cuda # NVIDIA Drivers
+      - "@multimedia,gstreamer1-plugins-good-extras,gstreamer1-plugin-libav,gstreamer1-plugin-openh264" # Multimedia
+      - fira-code-fonts,cascadia-fonts-all # Fonts
+      - google-chrome-stable # Google Chrome
+      - php,php-mysqlnd,php-gd,php-mbstring,php-json,php-xml,php-pecl-imagick,php-pecl-zip,php-soap,php-tidy # PHP
+      - mariadb-server # MariaDB Server
+      - nodejs # Node.js
+      - rust,cargo # Rust
+      - inkscape # Inkscape
+      - gnome-sound-recorder # Sound Recorder
+      - tilix # Tilix
+      - vlc # VLC media player
+      - gnome-tweaks # Tweaks
+      - transmission # Transmission
+      - easytag # EasyTAG
+      - gnome-subtitles # Gnome Subtitles
+      - mediawriter # Fedora Media Writer
+      - soundconverter # Sound Converter
+      - vice # VICE
+      - celluloid # Celluloid
+      - gnome-extensions-app # Extensions
+      - gthumb # gThumb
+      - mkvtoolnix # MKVToolNix GUI
+      - audacity-freeworld # Audacity
+      - dconf-editor # dconf Editor
+      - lm_sensors,unrar,mc # Utilities
+      - libadwaita-devel # Development files
+      - python3-jmespath,python3-psutil # Ansible dependencies
+      - libappindicator # GNOME Shell extensions dependencies
     packages_nogpgcheck:
-      - "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_lsb.major_release}}.noarch.rpm"
-      - "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ansible_lsb.major_release}}.noarch.rpm"
-      - https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-8.0.22-1.fc33.x86_64.rpm
+      - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_lsb.major_release}}.noarch.rpm
+      - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ansible_lsb.major_release}}.noarch.rpm
+      - https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-8.0.31-1.fc37.x86_64.rpm
+      - https://linux.dropbox.com/packages/fedora/nautilus-dropbox-2022.12.05-1.fedora.x86_64.rpm
     flathub:
-      - com.getpostman.Postman
-      - com.github.johnfactotum.Foliate
-      - com.rafaelmardojai.Blanket
-      - com.rawtherapee.RawTherapee
-      - com.slack.Slack
-      - com.spotify.Client
-      - com.viber.Viber
-      - de.haeckerfelix.Shortwave
-      - io.lmms.LMMS
-      - no.mifi.losslesscut
-      - org.blender.Blender
-      - org.darktable.Darktable
-      - org.fontforge.FontForge
-      - org.gimp.GIMP
-      - org.gnome.FontManager
-      - org.gnome.Lollypop
-      - org.gnome.Podcasts
-      - org.gnome.SoundRecorder
-      - org.kde.kdenlive
-      - org.kde.krita
-      - org.mypaint.MyPaint
-      - org.stellarium.Stellarium
-      - fyi.zoey.Boop-GTK
-      - io.typora.Typora
-      - org.processing.processingide
-      - com.skype.Client
-      - im.riot.Riot
+      - com.spotify.Client # Spotify
+      - com.getpostman.Postman # Postman
+      - io.github.lainsce.Khronos # Khronos
+      - im.riot.Riot # Element
+      - com.github.tchx84.Flatseal # Flatseal
+      - com.viber.Viber # Viber
+      - com.github.geigi.cozy # Cozy
+      - com.github.huluti.Curtail # Curtail
+      - com.github.johnfactotum.Foliate # Foliate
+      - com.github.liferooter.textpieces # Text Pieces
+      - com.github.marktext.marktext # MarkText
+      - com.github.rafostar.Clapper # Clapper
+      - com.icons8.Lunacy # Lunacy
+      - com.obsproject.Studio # OBS Studio
+      - com.rafaelmardojai.Blanket # Blanket
+      - com.rafaelmardojai.WebfontKitGenerator # Webfont Kit Generator
+      - com.rawtherapee.RawTherapee # RawTherapee
+      - com.skype.Client # Skype
+      - com.slack.Slack # Slack
+      - de.haeckerfelix.Shortwave # Shortwave
+      - fr.romainvigier.MetadataCleaner # Metadata Cleaner
+      - io.lmms.LMMS # LMMS
+      - io.typora.Typora # Typora
+      - md.obsidian.Obsidian # Obsidian
+      - net.fsuae.FS-UAE # FS-UAE
+      - no.mifi.losslesscut # LosslessCut
+      - org.blender.Blender # Blender
+      - org.cvfosammmm.Setzer # Setzer
+      - org.darktable.Darktable # Darktable
+      - org.fontforge.FontForge # FontForge
+      - org.gaphor.Gaphor # Gaphor
+      - org.gimp.GIMP # GNU Image Manipulation Program
+      - org.gnome.DejaDup # Déjà Dup Backups
+      - org.gnome.Evolution # Evolution
+      - org.gnome.FontManager # Font Manager
+      - org.gnome.Lollypop # Lollypop
+      - org.gnome.Podcasts # Podcasts
+      - org.gnome.Solanum # Solanum
+      - org.gnome.design.IconLibrary # Icon Library
+      - org.gustavoperedo.FontDownloader # Font Downloader
+      - org.kde.kdenlive # Kdenlive
+      - org.kde.krita # Krita
+      - org.mypaint.MyPaint # MyPaint
+      - org.stellarium.Stellarium # Stellarium
     gnome_shell_extensions:
       - dash-to-panel@jderose9.github.com
+      - blur-my-shell@aunetx
+      - bluetooth-quick-connect@bjarosze.gmail.com
       - appindicatorsupport@rgcjonas.gmail.com
       - freon@UshakovVasilii_Github.yahoo.com
-    vscode_extensions:
-      - mrmlnc.vscode-apache
-      - formulahendry.auto-close-tag
-      - coenraads.bracket-pair-colorizer-2
-      - editorconfig.editorconfig
-      - github.github-vscode-theme
-      - eamodio.gitlens
-      - golang.go
-      - paulhocker.kick-assembler-vscode-ext
-      - runem.lit-plugin
-      - pkief.material-icon-theme
-      - dawhite.mustache
-      - felixfbecker.php-debug
-      - bmewburn.vscode-intelephense-client
-      - ms-python.python
+      - gsconnect@andyholmes.github.io
     dconf:
       # GNOME
       - key: /org/gnome/settings-daemon/plugins/color/night-light-enabled
@@ -86,6 +97,10 @@
         value: "[('xkb', 'us'), ('xkb', 'rs+latin'), ('xkb', 'rs')]"
       - key: /system/locale/region
         value: "'en_GB.UTF-8'"
+      - key: /org/gnome/shell/favorite-apps
+        value: "['google-chrome.desktop', 'com.spotify.Client.desktop', 'com.getpostman.Postman.desktop', 'io.github.lainsce.Khronos.desktop', 'im.riot.Riot.desktop', 'code.desktop', 'com.gexperts.Tilix.desktop', 'org.gnome.Nautilus.desktop']"
+      - key: /org/gnome/desktop/screensaver/lock-enabled
+        value: boolean false
       # Terminal
       - key: /org/gnome/terminal/legacy/default-show-menubar
         value: boolean false
@@ -123,32 +138,36 @@
         value: boolean true
       - key: /org/gnome/Totem/subtitle-encoding
         value: "'WINDOWS-1250'"
+      # GNOME Shell extensions
+      - key: /org/gnome/shell/extensions/dash-to-panel/panel-element-positions
+        value: "'{\"0\":[{\"element\":\"showAppsButton\",\"visible\":true,\"position\":\"stackedBR\"},{\"element\":\"activitiesButton\",\"visible\":false,\"position\":\"stackedTL\"},{\"element\":\"leftBox\",\"visible\":true,\"position\":\"stackedTL\"},{\"element\":\"taskbar\",\"visible\":true,\"position\":\"centerMonitor\"},{\"element\":\"centerBox\",\"visible\":true,\"position\":\"stackedBR\"},{\"element\":\"rightBox\",\"visible\":true,\"position\":\"stackedBR\"},{\"element\":\"dateMenu\",\"visible\":true,\"position\":\"stackedBR\"},{\"element\":\"systemMenu\",\"visible\":true,\"position\":\"stackedBR\"},{\"element\":\"desktopButton\",\"visible\":true,\"position\":\"stackedBR\"}]}'"
+      - key: /org/gnome/shell/extensions/dash-to-panel/appicon-margin
+        value: 4
+      - key: /org/gnome/shell/extensions/dash-to-panel/trans-use-custom-opacity
+        value: boolean true
     dosbox_options:
       - sdl.fullscreen: 'true'
-      - sdl.fulldouble: 'true'
-      - sdl.fullresolution: 'desktop'
-      - sdl.windowresolution: 'original'
-      - sdl.output: 'opengl'
     services:
       - httpd
       - mariadb
   tasks:
-    - include: tasks/update.yaml
-    - include: tasks/packages_nogpgcheck.yaml
-    - include: tasks/packages.yaml
-    - include: tasks/flathub.yaml
-    - include: tasks/google-chrome.yaml
-    - include: tasks/fonts.yaml
-    - include: tasks/yarn.yaml
-    - include: tasks/gnome-shell-extensions.yaml
-    - include: tasks/vscode.yaml
-    - include: tasks/composer.yaml
-    - include: tasks/dconf.yaml
-    - include: tasks/dosbox.yaml
-    - include: tasks/services.yaml
-    - include: tasks/powerline.yaml
-    - include: tasks/microsoft-edge.yaml
-    - include: tasks/virtualbox.yaml
-    - include: tasks/aseprite.yaml
-    - include: tasks/kick-assembler.yaml
-    - include: tasks/c64-65xe-nes-debugger.yaml
+    - include_tasks: tasks/update.yaml
+    - include_tasks: tasks/packages-nogpgcheck.yaml
+    - include_tasks: tasks/packages.yaml
+    - include_tasks: tasks/flathub.yaml
+    - include_tasks: tasks/microsoft-fonts.yaml
+    - include_tasks: tasks/yarn.yaml
+    - include_tasks: tasks/gnome-shell-extensions.yaml
+    - include_tasks: tasks/vscode.yaml
+    - include_tasks: tasks/composer.yaml
+    - include_tasks: tasks/dosbox.yaml
+    - include_tasks: tasks/services.yaml
+    - include_tasks: tasks/powerline.yaml
+    - include_tasks: tasks/microsoft-edge.yaml
+    - include_tasks: tasks/virtualbox.yaml
+    - include_tasks: tasks/aseprite.yaml
+    - include_tasks: tasks/kick-assembler.yaml
+    - include_tasks: tasks/c64-65xe-nes-debugger.yaml
+    - include_tasks: tasks/open-razer.yaml
+    - include_tasks: tasks/charm.yaml
+    - include_tasks: tasks/dconf.yaml

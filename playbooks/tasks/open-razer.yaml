@@ -1,0 +1,13 @@
+- name: Preparing to install OpenRazer
+  become: yes
+  dnf:
+    name: kernel-devel
+    state: latest
+- name: Adding OpenRazer repository
+  become: yes
+  shell: sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/hardware:razer/Fedora_37/hardware:razer.repo
+- name: Installing OpenRazer
+  become: yes
+  dnf:
+    name: openrazer-meta
+    state: latest

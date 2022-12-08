@@ -1,0 +1,13 @@
+- name: Importing Charm GPG key
+  become: yes
+  rpm_key:
+    key: https://repo.charm.sh/yum/gpg.key
+    state: present
+- name: Adding Charm repository
+  become: yes
+  shell: echo -e '[charm]\nname=Charm\nbaseurl=https://repo.charm.sh/yum/\nenabled=1\ngpgcheck=1\ngpgkey=https://repo.charm.sh/yum/gpg.key' | sudo tee /etc/yum.repos.d/charm.repo
+- name: Installing Charm packages
+  become: yes
+  dnf:
+    name: gum,glow
+    state: latest

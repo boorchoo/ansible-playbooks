@@ -10,7 +10,7 @@
     state: directory
 - name: Downloading Skia
   unarchive:
-    src: "https://github.com/aseprite/skia/releases/download/m81-b607b32047/Skia-Linux-Release-x64.zip"
+    src: "https://github.com/aseprite/skia/releases/download/m102-861e4743af/Skia-Linux-Release-x64-libstdc++.zip"
     remote_src: yes
     dest: "{{ansible_env.HOME}}/src/third_party/skia-linux-release"
 - name: Building Aseprite
@@ -19,11 +19,9 @@
     rm -rf aseprite
     git clone --recursive https://github.com/aseprite/aseprite.git
     cd aseprite
-    git pull
-    git submodule update --init --recursive
     mkdir build
-    cd build/
-    cmake -DCMAKE_BUILD_TYPE=Release -DLAF_BACKEND=skia -DSKIA_DIR=../../skia-linux-release -DWITH_WEBP_SUPPORT=OFF -DWITH_DESKTOP_INTEGRATION=ON -DSKIA_LIBRARY_DIR=../../skia-linux-release/out/Release-x64 -G Ninja ..
+    cd build
+    cmake -DCMAKE_BUILD_TYPE=Release -DLAF_BACKEND=skia -DSKIA_DIR=../../skia-linux-release -DSKIA_LIBRARY_DIR=../../skia-linux-release/out/Release-x64 -DENABLE_DESKTOP_INTEGRATION=1 -G Ninja ..
     ninja aseprite
 - name: Installing Aseprite
   become: yes

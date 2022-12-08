@@ -1,14 +1,11 @@
 - name: Adding flathub repository
-  flatpak_remote:
-    name: flathub
-    state: present
-    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+  shell: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 - name: Installing flatpaks from flathub
   flatpak:
     name: "{{item}}"
     state: present
     remote: flathub
   loop: "{{flathub}}"
-- name: Configuring Viber
-  shell: flatpak override --user --own-name='org.kde.*' com.viber.Viber
-  when: "'com.viber.Viber' in flathub"
+#- name: Configuring Viber
+#  shell: flatpak override --user --own-name='org.kde.*' com.viber.Viber
+#  when: "'com.viber.Viber' in flathub"

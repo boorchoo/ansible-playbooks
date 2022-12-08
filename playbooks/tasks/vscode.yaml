@@ -5,28 +5,9 @@
     state: present
 - name: Adding Visual Studio Code repository
   become: yes
-  yum_repository:
-    name: code
-    description: Visual Studio Code
-    baseurl: https://packages.microsoft.com/yumrepos/vscode
-    enabled: yes
-    gpgcheck: yes
-    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+  shell: 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 - name: Installing Visual Studio Code
   become: yes
   dnf:
     name: code
     state: latest
-- name: Installing Visual Studio Code extensions
-  command: code --install-extension {{item}}
-  loop: "{{vscode_extensions}}"
-- name: Preparing to configure Visual Studio Code
-  file:
-    path: "{{ansible_env.HOME}}/.config/Code/User"
-    recurse: yes
-    state: directory
-- name: Configuring Visual Studio Code
-  template:
-    src: "{{playbook_dir}}/../data/vscode-settings.json"
-    dest: "{{ansible_env.HOME}}/.config/Code/User/settings.json"
-

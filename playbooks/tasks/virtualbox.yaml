@@ -5,10 +5,10 @@
     state: latest
 - name: Downloading VirtualBox
   get_url:
-    url: https://download.virtualbox.org/virtualbox/6.1.22/VirtualBox-6.1.22-144080-Linux_amd64.run
+    url: https://download.virtualbox.org/virtualbox/7.0.4/VirtualBox-7.0.4-154605-Linux_amd64.run
     dest: /tmp
 - name: Preparing VirualBox installer
-  file: dest="/tmp/VirtualBox-6.1.22-144080-Linux_amd64.run" mode=a+x
+  file: dest="/tmp/VirtualBox-7.0.4-154605-Linux_amd64.run" mode=a+x
 - name: Installing VirtualBox
   become: yes
-  shell: /tmp/VirtualBox-6.1.22-144080-Linux_amd64.run --nox11
+  shell: /tmp/VirtualBox-7.0.4-154605-Linux_amd64.run --nox11

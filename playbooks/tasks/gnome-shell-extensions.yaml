@@ -4,3 +4,6 @@
 - name: Installing GNOME Shell extensions
   shell: "gnome-extensions install --force https://extensions.gnome.org{{lookup('url','https://extensions.gnome.org/extension-info/?uuid={{item}}&shell_version={{gnome_shell_version.stdout}}')|from_json|json_query('download_url')}}"
   loop: "{{gnome_shell_extensions}}"
+- name: Compiling GNOME Shell extensions schemas
+  shell: "glib-compile-schemas ~/.local/share/gnome-shell/extensions/{{item}}/schemas"
+  loop: "{{gnome_shell_extensions}}"

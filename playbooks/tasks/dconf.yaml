@@ -3,3 +3,5 @@
     key: "{{item.key}}"
     value: "{{item.value|string}}"
   loop: "{{dconf}}"
+- name: "Reseting GNOME app picker layout"
+  shell: gsettings reset org.gnome.shell app-picker-layout

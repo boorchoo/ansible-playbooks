@@ -1,4 +1,4 @@
-- name: Importing Microsoft Edge GPG key
+- name: Importing Microsoft GPG key
   become: yes
   rpm_key:
     key: https://packages.microsoft.com/keys/microsoft.asc
@@ -6,8 +6,8 @@
 - name: Adding Microsoft Edge repository
   become: yes
   yum_repository:
-    name: microsoft-edge-dev
-    description: microsoft-edge-dev
+    name: microsoft-edge
+    description: microsoft-edge
     baseurl: https://packages.microsoft.com/yumrepos/edge/
     enabled: yes
     gpgcheck: yes
@@ -15,5 +15,5 @@
 - name: Installing Microsoft Edge
   become: yes
   dnf:
-    name: microsoft-edge-dev
+    name: microsoft-edge-stable
     state: latest
