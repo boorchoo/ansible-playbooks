@@ -1,0 +1,12 @@
+- name: Preparing to install Processing
+  file:
+    path: "{{ansible_env.HOME}}/bin"
+    recurse: yes
+    state: directory
+- name: Installing Processing
+  unarchive:
+    src: https://github.com/processing/processing4/releases/download/processing-1289-4.1.1/processing-4.1.1-linux-x64.tgz
+    remote_src: yes
+    dest: "{{ansible_env.HOME}}/bin"
+- name: Installing Processing
+  shell: "{{ansible_env.HOME}}/bin/processing-4.1.1/install.sh"
