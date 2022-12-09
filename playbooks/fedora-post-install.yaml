@@ -17,7 +17,6 @@
       - transmission # Transmission
       - easytag # EasyTAG
       - gnome-subtitles # Gnome Subtitles
-      - mediawriter # Fedora Media Writer
       - soundconverter # Sound Converter
       - vice # VICE
       - steam # Steam
@@ -29,7 +28,6 @@
       - dconf-editor # dconf Editor
       - lm_sensors,unrar,mc # Utilities
       - libadwaita-devel # Development files
-      - python3-jmespath,python3-psutil # Ansible dependencies
       - libappindicator # GNOME Shell extensions dependencies
     packages_nogpgcheck:
       - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_lsb.major_release}}.noarch.rpm # RPM Fusion free
@@ -153,7 +151,6 @@
       - httpd
       - mariadb
   tasks:
-    - include_tasks: tasks/update.yaml
     - include_tasks: tasks/packages-nogpgcheck.yaml
     - include_tasks: tasks/packages.yaml
     - include_tasks: tasks/flathub.yaml

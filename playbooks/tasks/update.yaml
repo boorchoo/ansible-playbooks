@@ -1,7 +1,0 @@
-- name: Updating packages
-  become: yes
-  dnf:
-    name: '*'
-    state: latest
-- name: Updating flatpaks
-  command: flatpak update
