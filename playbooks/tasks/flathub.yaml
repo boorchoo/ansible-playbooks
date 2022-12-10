@@ -1,4 +1,5 @@
 - name: Adding flathub repository
+  become: yes
   shell: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 - name: Installing flatpaks from flathub
   flatpak:
