@@ -28,6 +28,7 @@
       - audacity-freeworld # Audacity
       - dconf-editor # dconf Editor
       - lm_sensors,unrar,mc # Utilities
+      - vim-default-editor # VIM as default editor
       - libadwaita-devel # Development files
       - libappindicator # GNOME Shell extensions dependencies
     packages_nogpgcheck:
