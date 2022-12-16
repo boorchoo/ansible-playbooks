@@ -1,0 +1,13 @@
+- name: Importing Microsoft GPG key
+  become: yes
+  rpm_key:
+    key: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+- name: Adding Microsoft Teams repository
+  become: yes
+  shell: echo -e "[teams]\nname=teams\nbaseurl=https://packages.microsoft.com/yumrepos/ms-teams\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/teams.repo
+- name: Installing Microsoft Teams
+  become: yes
+  dnf:
+    name: teams
+    state: latest
