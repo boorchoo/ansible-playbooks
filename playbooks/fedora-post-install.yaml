@@ -9,6 +9,7 @@
       - mariadb-server # MariaDB Server
       - nodejs # Node.js
       - rust,cargo # Rust
+      - evolution # Evolution
       - inkscape # Inkscape
       - gnome-sound-recorder # Sound Recorder
       - tilix # Tilix
@@ -35,6 +36,7 @@
       - https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-8.0.31-1.fc37.x86_64.rpm # MySQL Workbench
       - https://linux.dropbox.com/packages/fedora/nautilus-dropbox-2022.12.05-1.fedora.x86_64.rpm # Dropbox
       - https://code-industry.net/public/master-pdf-editor-4.3.89_qt5.x86_64.rpm # Master PDF Editor 4
+      - https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox-0.12.6.1-2.almalinux9.x86_64.rpm # wkhtmltopdf
     flathub:
       - com.spotify.Client # Spotify
       - com.getpostman.Postman # Postman
@@ -69,7 +71,6 @@
       - org.gaphor.Gaphor # Gaphor
       - org.gimp.GIMP # GNU Image Manipulation Program
       - org.gnome.DejaDup # Déjà Dup Backups
-      - org.gnome.Evolution # Evolution
       - org.gnome.FontManager # Font Manager
       - org.gnome.Lollypop # Lollypop
       - org.gnome.Podcasts # Podcasts
