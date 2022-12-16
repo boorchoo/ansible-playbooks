@@ -3,5 +3,5 @@
   dnf:
     name: "{{item}}"
     state: latest
-    allowerasing: "{{item}}" == 'vim-default-editor'
+    allowerasing: "{{item == 'vim-default-editor'}}"
   loop: "{{packages}}"
