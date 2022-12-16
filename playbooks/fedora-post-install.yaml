@@ -164,6 +164,7 @@
     - include_tasks: tasks/services.yaml
     - include_tasks: tasks/powerline.yaml
     - include_tasks: tasks/microsoft-edge.yaml
+    - include_tasks: tasks/microsoft-teams.yaml
     - include_tasks: tasks/virtualbox.yaml
     - include_tasks: tasks/aseprite.yaml
     - include_tasks: tasks/kick-assembler.yaml
