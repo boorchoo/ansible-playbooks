@@ -24,7 +24,7 @@
       - celluloid # Celluloid
       - gnome-extensions-app # Extensions
       - gthumb # gThumb
-      - mkvtoolnix # MKVToolNix GUI
+      - mkvtoolnix-gui # MKVToolNix GUI
       - audacity-freeworld # Audacity
       - dconf-editor # dconf Editor
       - lm_sensors,unrar,mc # Utilities
